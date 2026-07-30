@@ -12,7 +12,7 @@ public:
     SettingBoardPinTracker *trackerPin,
     SettingBoardPinTrackerCommand *commandPin,
     SettingBoardPinMode *modePin,
-    SettingProgramTracking *trackingSetting,
+    SettingProgramTrackers *trackingSetting,
     SettingProgramLDR *ldrSetting,
     SettingBoardADC *adcSetting,
     SettingBoardPWM *pwmSetting,

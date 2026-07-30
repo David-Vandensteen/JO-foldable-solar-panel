@@ -14,7 +14,7 @@ void Trackers::init() {
       &_setting->board.pin.tracker[i],
       &_setting->board.pin.tracker[i].command,
       &_setting->board.pin.mode,
-      &_setting->program.tracking,
+      &_setting->program.trackers,
       &_setting->program.ldr,
       &_setting->board.adc,
       &_setting->board.pwm,

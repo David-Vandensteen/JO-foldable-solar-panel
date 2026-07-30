@@ -14,7 +14,7 @@ Tracker::Tracker(
   SettingBoardPinTracker *trackerPin,
   SettingBoardPinTrackerCommand *commandPin,
   SettingBoardPinMode *modePin,
-  SettingProgramTracking *trackingSetting,
+  SettingProgramTrackers *trackersSetting,
   SettingProgramLDR *ldrSetting,
   SettingBoardADC *adcSetting,
   SettingBoardPWM *pwmSetting,
@@ -49,7 +49,7 @@ Tracker::Tracker(
         pwmSetting->resolution
       )
     ),
-    _trackingInterval(trackingSetting->interval) {};
+    _trackingInterval(trackersSetting->interval) {};
 
 void Tracker::init() {
   Log.traceln("Tracker::init");

@@ -78,8 +78,8 @@ bool assertSetting(Setting *setting) {
     logFatal("Program version is null or empty");
     return false;
   }
-  if (setting->program.tracking.interval == 0) {
-    logFatal("Tracking interval must be greater than 0");
+  if (setting->program.trackers.interval == 0) {
+    logFatal("Trackers interval must be greater than 0");
     return false;
   }
   if (setting->program.ldr.threshold > 100) {
@@ -128,7 +128,7 @@ void logSetting(Setting *setting) {
   Log.traceln("  - Manual mode pin: %d", setting->board.pin.mode.manual);
   Log.traceln("- Program:");
   Log.traceln("  - Version: %s", setting->program.version);
-  Log.traceln("  - Tracking interval: %lu", setting->program.tracking.interval);
+  Log.traceln("  - Trackers interval: %lu", setting->program.trackers.interval);
   Log.traceln("  - LDR threshold: %d", setting->program.ldr.threshold);
   Log.traceln("  - LDR sampling interval: %lu", setting->program.ldr.sampling.interval);
   Log.traceln("  - LDR filter smoothing: %d", setting->program.ldr.filter.smoothing);

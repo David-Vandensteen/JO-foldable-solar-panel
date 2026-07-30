@@ -12,10 +12,11 @@ public:
     SettingBoardPinTracker *trackerPin,
     SettingBoardPinTrackerCommand *commandPin,
     SettingBoardPinMode *modePin,
+    SettingProgramTracking *trackingSetting,
     SettingProgramLDR *ldrSetting,
-    uint16_t adcResolution,
-    uint16_t pwmResolution,
-    uint8_t motorSpeedPercent
+    SettingBoardADC *adcSetting,
+    SettingBoardPWM *pwmSetting,
+    SettingProgramMotor *motorSetting
   );
   void init();
   void update();
@@ -30,7 +31,8 @@ private:
   Ldrs _ldrs;
   Motors _motors;
   State _state = State::Idle;
-  uint8_t _motorSpeedPercent;
+  SettingProgramMotor *_motorSetting;
+  unsigned long _trackingInterval;
   bool isManualMode();
   void deploy();
   void retract();

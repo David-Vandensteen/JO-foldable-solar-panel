@@ -14,10 +14,11 @@ void Trackers::init() {
       &_setting->board.pin.tracker[i],
       &_setting->board.pin.tracker[i].command,
       &_setting->board.pin.mode,
+      &_setting->program.tracking,
       &_setting->program.ldr,
-      _setting->board.adc.resolution,
-      _setting->board.pwm.resolution,
-      _setting->program.motor.speed
+      &_setting->board.adc,
+      &_setting->board.pwm,
+      &_setting->program.motor
     );
   }
   #if defined(BOARD_UNO) || defined(BOARD_NANO)

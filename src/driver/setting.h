@@ -102,6 +102,10 @@ typedef struct SettingBoard {
   SettingBoardSerial serial;
 } SettingBoard;
 
+typedef struct SettingProgramTracking {
+  unsigned long interval;
+} SettingProgramTracking;
+
 typedef struct SettingProgramLDRSampling {
   unsigned long interval;
 } SettingProgramLDRSampling;
@@ -122,6 +126,7 @@ typedef struct SettingProgramMotor {
 
 typedef struct SettingProgram {
   char *version;
+  SettingProgramTracking tracking;
   SettingProgramLDR ldr;
   SettingProgramMotor motor;
 } SettingProgram;

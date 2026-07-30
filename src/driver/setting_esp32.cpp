@@ -26,9 +26,9 @@ void settingInit(Setting *setting) {
     setting->board.pin.led = 15;
     setting->board.pin.mode.manual = 2;
     setting->program.version = VERSION;
-    setting->program.ldr.threshold = SETTING_PROGRAM_LDR_THRESHOLD;
-    setting->program.ldr.sampling.interval = SETTING_PROGRAM_LDR_SAMPLING_INTERVAL;
-    setting->program.ldr.filter.smoothing = SETTING_PROGRAM_LDR_FILTER_SMOOTHING;
+    setting->program.ldrs.threshold = SETTING_PROGRAM_LDR_THRESHOLD;
+    setting->program.ldrs.sampling.interval = SETTING_PROGRAM_LDR_SAMPLING_INTERVAL;
+    setting->program.ldrs.filter.smoothing = SETTING_PROGRAM_LDR_FILTER_SMOOTHING;
     setting->program.motor.speed = SETTING_PROGRAM_MOTOR_SPEED;
 }
 

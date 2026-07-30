@@ -12,7 +12,7 @@ Tracker::Tracker(
   SettingBoardPinTrackerCommand *commandPin,
   SettingBoardPinMode *modePin,
   SettingProgramTrackers *trackersSetting,
-  SettingProgramLDR *ldrSetting,
+  SettingProgramLDRs *ldrSetting,
   SettingBoardADC *adcSetting,
   SettingBoardPWM *pwmSetting,
   SettingProgramMotor *motorSetting

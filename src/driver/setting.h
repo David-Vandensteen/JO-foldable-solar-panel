@@ -106,19 +106,14 @@ typedef struct SettingProgramTrackers {
   unsigned long interval;
 } SettingProgramTrackers;
 
-typedef struct SettingProgramLDRSampling {
+typedef struct SettingProgramLDRsSampling {
   unsigned long interval;
-} SettingProgramLDRSampling;
+} SettingProgramLDRsSampling;
 
-typedef struct SettingProgramLDRFilter {
-  uint8_t smoothing;
-} SettingProgramLDRFilter;
-
-typedef struct SettingProgramLDR {
+typedef struct SettingProgramLDRs {
   uint16_t threshold;
-  SettingProgramLDRSampling sampling;
-  SettingProgramLDRFilter filter;
-} SettingProgramLDR;
+  SettingProgramLDRsSampling sampling;
+} SettingProgramLDRs;
 
 typedef struct SettingProgramMotor {
   uint8_t speed;
@@ -127,7 +122,7 @@ typedef struct SettingProgramMotor {
 typedef struct SettingProgram {
   char *version;
   SettingProgramTrackers trackers;
-  SettingProgramLDR ldr;
+  SettingProgramLDRs ldrs;
   SettingProgramMotor motor;
 } SettingProgram;
 

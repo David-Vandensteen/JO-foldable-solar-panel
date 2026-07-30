@@ -82,16 +82,12 @@ bool assertSetting(Setting *setting) {
     logFatal("Trackers interval must be greater than 0");
     return false;
   }
-  if (setting->program.ldr.threshold > 100) {
-    logFatal("LDR threshold out of range");
+  if (setting->program.ldrs.threshold > 100) {
+    logFatal("LDRs threshold out of range");
     return false;
   }
-  if (setting->program.ldr.sampling.interval == 0) {
-    logFatal("LDR sampling interval must be greater than 0");
-    return false;
-  }
-  if (setting->program.ldr.filter.smoothing > 255) {
-    logFatal("LDR filter smoothing out of range");
+  if (setting->program.ldrs.sampling.interval == 0) {
+    logFatal("LDRs sampling interval must be greater than 0");
     return false;
   }
   if (setting->program.motor.speed > 100) {
@@ -129,9 +125,8 @@ void logSetting(Setting *setting) {
   Log.traceln("- Program:");
   Log.traceln("  - Version: %s", setting->program.version);
   Log.traceln("  - Trackers interval: %lu", setting->program.trackers.interval);
-  Log.traceln("  - LDR threshold: %d", setting->program.ldr.threshold);
-  Log.traceln("  - LDR sampling interval: %lu", setting->program.ldr.sampling.interval);
-  Log.traceln("  - LDR filter smoothing: %d", setting->program.ldr.filter.smoothing);
+  Log.traceln("  - LDRs threshold: %d", setting->program.ldrs.threshold);
+  Log.traceln("  - LDRs sampling interval: %lu", setting->program.ldrs.sampling.interval);
   Log.traceln("  - Motor speed: %d", setting->program.motor.speed);
 }
 

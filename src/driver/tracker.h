@@ -13,7 +13,7 @@ public:
     SettingBoardPinTrackerCommand *commandPin,
     SettingBoardPinMode *modePin,
     SettingProgramTrackers *trackingSetting,
-    SettingProgramLDR *ldrSetting,
+    SettingProgramLDRs *ldrSetting,
     SettingBoardADC *adcSetting,
     SettingBoardPWM *pwmSetting,
     SettingProgramMotor *motorSetting

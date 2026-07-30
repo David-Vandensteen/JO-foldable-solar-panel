@@ -123,7 +123,7 @@ typedef struct SettingProgram {
   char *version;
   SettingProgramTrackers trackers;
   SettingProgramLDRs ldrs;
-  SettingProgramMotor motor;
+  SettingProgramMotor motors;
 } SettingProgram;
 
 typedef struct Setting {

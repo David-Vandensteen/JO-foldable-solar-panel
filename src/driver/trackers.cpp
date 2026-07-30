@@ -18,7 +18,7 @@ void Trackers::init() {
       &_setting->program.ldrs,
       &_setting->board.adc,
       &_setting->board.pwm,
-      &_setting->program.motor
+      &_setting->program.motors
     );
   }
   #if defined(BOARD_UNO) || defined(BOARD_NANO)

@@ -64,7 +64,7 @@ void settingInit(Setting *setting) {
 	setting->program.ldrs.threshold = SETTING_PROGRAM_LDR_THRESHOLD;
   setting->program.ldrs.sampling.interval = SETTING_PROGRAM_LDR_SAMPLING_INTERVAL;
   setting->program.ldrs.filter.smoothing = SETTING_PROGRAM_LDR_FILTER_SMOOTHING;
-	setting->program.motor.speed = SETTING_PROGRAM_MOTOR_SPEED;
+  setting->program.motors.speed = SETTING_PROGRAM_MOTOR_SPEED;
 }
 
 #endif

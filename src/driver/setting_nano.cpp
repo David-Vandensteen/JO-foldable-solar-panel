@@ -41,7 +41,6 @@ LDR 2 - sun sensor 2:
 #define SETTING_BOARD_SERIAL_BAUD_RATE 115200
 #define SETTING_PROGRAM_LDR_THRESHOLD 10
 #define SETTING_PROGRAM_LDR_SAMPLING_INTERVAL 1000
-#define SETTING_PROGRAM_LDR_FILTER_SMOOTHING 230
 #define SETTING_PROGRAM_MOTOR_SPEED 30
 
 void settingInit(Setting *setting) {
@@ -63,7 +62,6 @@ void settingInit(Setting *setting) {
 	setting->program.version = VERSION;
 	setting->program.ldrs.threshold = SETTING_PROGRAM_LDR_THRESHOLD;
   setting->program.ldrs.sampling.interval = SETTING_PROGRAM_LDR_SAMPLING_INTERVAL;
-  setting->program.ldrs.filter.smoothing = SETTING_PROGRAM_LDR_FILTER_SMOOTHING;
   setting->program.motors.speed = SETTING_PROGRAM_MOTOR_SPEED;
 }
 

@@ -53,6 +53,7 @@ Tracker::Tracker(
 void Tracker::init() {
   Log.traceln("Tracker::init");
   _state = TrackerState::IDLE;
+  pinMode(_modePin->manual, INPUT);
   _ldrs.init();
   _motors.init();
   _command.init();

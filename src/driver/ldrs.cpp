@@ -32,25 +32,8 @@ LdrsComparison Ldrs::getComparison() {
 }
 
 LdrsComparison Ldrs::update() {
-  // if (
-  //   millis() - up.getLastUpdateTime() < up.getSamplingInterval()
-  //   || millis() - down.getLastUpdateTime() < down.getSamplingInterval()
-  // ) {
-  //   return LdrsComparison::NOT_UPDATED;
-  // }
+  up.update();
+  down.update();
 
-
-
-  uint8_t upValue = up.update();
-  uint8_t downValue = down.update();
-
-  const int16_t delta = (int16_t)upValue - (int16_t)downValue;
-  if (abs(delta) <= _ldrSetting->threshold) {
-    return LdrsComparison::DEADBAND;
-  }
-  if (delta > 0) {
-    return LdrsComparison::UP_GREATER_THAN_DOWN;
-  }
-
-  return LdrsComparison::DOWN_GREATER_THAN_UP;
+  return Ldrs::getComparison();
 }

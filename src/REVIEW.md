@@ -2,45 +2,33 @@
 
 ## Scope
 
-This review focuses on runtime behavior and board configuration consistency in `src/driver`.
+This pass reviews runtime behavior, board configuration parity, and command/control flow in `src/driver`.
 
 ## Findings
 
-### 1. Medium: reset command path is acknowledged but not implemented
+### 1. Medium: command state is latched with no return to RUNNING
 
-- Location: `src/driver/tracker.cpp`
-- Issue: `Tracker::update()` now handles `CommandState::STOP` and `CommandState::RESET`, but the reset branch only stops motors and leaves a `TODO` instead of returning the tracker to a known initial position.
-- Impact: a long hold can enter RESET state without performing any reset behavior, so the runtime contract remains incomplete.
-- Verification: the `CommandState::RESET` branch logs, calls `stop()`, and ends with `// TODO: reset the tracker to initial position`.
+- Location: `src/driver/command.cpp`, `src/driver/tracker.cpp`
+- Issue: callbacks set `_state` to `STOP`/`RESET`, but there is no path setting `_state` back to `RUNNING`.
+- Impact: once STOP is triggered, tracker remains stopped permanently unless a full reset/reinit occurs.
+- Verification: `Command::update()` only updates hold timing and returns `_state`; no state transition back to RUNNING exists.
 
-### 2. Medium: deadband does not issue stop command
+## Verified Improvements
 
-- Location: `src/driver/tracker.cpp`
-- Issue: in `Tracker::interval()`, the `LdrsComparison::DEADBAND` branch only logs and does not call `stop()`.
-- Impact: when interval execution is restored, motors may continue moving after returning to neutral range.
-
-## Verified Improvements Since Previous Pass
-
-- Nano/ESP32 settings were aligned with `SettingProgramLDRs` and no longer reference removed `filter.smoothing` fields.
-- Threshold is now used in `Ldrs::update()` through `delta` and `_threshold` deadband logic.
-- Program naming is being normalized (`ldrs`, `motors`) and applied in core Uno path.
-- `DV_DualHoldState` integration in `Command` now uses context-aware callbacks (`void*`) and no longer relies on a global active instance singleton.
-- `Tracker` now owns a concrete `Command`, initializes it, and consumes `CommandState::STOP` / `CommandState::RESET` during `update()`.
-- `Ldr` now uses `DV_EveryInterval` context callbacks (`setCallback(void (*)(void*), context)`), removing the previous lambda-to-function-pointer mismatch on AVR.
-- `Tracker` now includes `DV_EveryInterval` plumbing plus a dedicated `interval()` decision path based on `Ldrs::getComparison()`.
-- `Tracker::update()` now calls `_interval.update()`, so interval callbacks are executed at runtime.
-- `Tracker` decisions now run on fresh values inside `Tracker::interval()` via `_ldrs.update()`, removing the previous one-cycle stale-decision risk.
-- `Tracker::init()` now explicitly configures the manual mode pin with `pinMode(_modePin->manual, INPUT)` before reads.
-- Stale symbols were cleaned up: unused `Ldr::raw` and `LdrsComparison::NOT_UPDATED` were removed.
-- Driver diagnostics currently show no active errors for the current workspace state.
+- Interval decision loop is now connected: `Tracker::update()` advances `_interval` and decisions run in `Tracker::interval()`.
+- One-cycle stale decision risk was removed by sampling (`_ldrs.update()`) inside the interval callback.
+- Deadband now actively stops motion when tracker is moving.
+- Manual mode pin is explicitly initialized in `Tracker::init()`.
+- Manual mode now forces stop and exits interval tick early, preventing residual motion after mode switch.
+- `Ldr` callback wiring is now AVR-safe via context callbacks in `DV_EveryInterval`.
+- Stale symbols were removed (`Ldr::raw`, `LdrsComparison::NOT_UPDATED`).
+- Nano and ESP32 settings now initialize `program.trackers.interval`, matching validation requirements.
 
 ## Test Gaps
 
-- No automated test covers stop/reset button behavior in runtime loop.
-- No test verifies deadband transition stops motors.
-- No test verifies per-LDR sampling cadence across both sensors under load.
-- No board-matrix compile check is present for Uno/Nano/ESP32 after recent settings-model changes.
+- No automated test for STOP -> RUNNING recovery semantics (or explicit latching contract).
+- No board-matrix startup validation test for Uno/Nano/ESP32 to catch config drift.
 
 ## Conclusion
 
-The codebase progressed on naming consistency, threshold usage, command integration, and callback compatibility on AVR, and board settings are structurally aligned. The main remaining risks are runtime behavior gaps: reset behavior is unfinished and deadband still does not actively stop motion.
+Core tracker timing, deadband handling, and board-config parity improved significantly. The main remaining runtime ambiguity is command-state latching (`STOP`/`RESET` with no explicit return to `RUNNING`). Clarifying or implementing that transition should be the next stabilization step.

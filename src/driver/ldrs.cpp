@@ -15,24 +15,26 @@ void Ldrs::init() {
   down.init();
 }
 
-ldrsComparison Ldrs::update() {
-  if (
-    millis() - up.getLastUpdateTime() < up.getSamplingInterval()
-    || millis() - down.getLastUpdateTime() < down.getSamplingInterval()
-  ) {
-    return ldrsComparison::NotUpdated;
-  }
+LdrsComparison Ldrs::update() {
+  // if (
+  //   millis() - up.getLastUpdateTime() < up.getSamplingInterval()
+  //   || millis() - down.getLastUpdateTime() < down.getSamplingInterval()
+  // ) {
+  //   return LdrsComparison::NOT_UPDATED;
+  // }
+
+
 
   uint8_t upValue = up.update();
   uint8_t downValue = down.update();
 
   const int16_t delta = (int16_t)upValue - (int16_t)downValue;
   if (abs(delta) <= _threshold) {
-    return ldrsComparison::Deadband;
+    return LdrsComparison::DEADBAND;
   }
   if (delta > 0) {
-    return ldrsComparison::UpGreaterThanDown;
+    return LdrsComparison::UP_GREATER_THAN_DOWN;
   }
 
-  return ldrsComparison::DownGreaterThanUp;
+  return LdrsComparison::DOWN_GREATER_THAN_UP;
 }

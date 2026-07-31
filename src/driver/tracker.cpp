@@ -9,7 +9,6 @@
 
 Tracker::Tracker(
   SettingBoardPinTracker *trackerPin,
-  SettingBoardPinTrackerCommand *commandPin,
   SettingBoardPinMode *modePin,
   SettingProgramTrackers *trackersSetting,
   SettingProgramLDRs *ldrSetting,
@@ -50,26 +49,26 @@ Tracker::Tracker(
 
 void Tracker::init() {
   Log.traceln("Tracker::init");
-  _state = State::Idle;
+  _state = State::IDLE;
   _ldrs.init();
   _motors.init();
 }
 
 void Tracker::deploy() {
   Log.traceln("Tracker::deploy");
-  _state = State::Deploying;
+  _state = State::DEPLOYING;
   _motors.deploy(_motorSetting->speed);
 }
 
 void Tracker::retract() {
   Log.traceln("Tracker::retract");
-  _state = State::Retracting;
+  _state = State::RETRACTING;
   _motors.retract(_motorSetting->speed);
 }
 
 void Tracker::stop() {
   Log.traceln("Tracker::stop");
-  _state = State::Idle;
+  _state = State::IDLE;
   _motors.stop();
 }
 
@@ -78,18 +77,18 @@ bool Tracker::isManualMode() {
 }
 
 void Tracker::update() {
-  ldrsComparison comparison = _ldrs.update();
+  LdrsComparison comparison = _ldrs.update();
   switch (comparison)
   {
-  case ldrsComparison::UpGreaterThanDown:
+  case LdrsComparison::UP_GREATER_THAN_DOWN:
     Log.traceln("Tracker::update - LDR UpGreaterThanDown");
     if (!isManualMode()) deploy();
     break;
-  case ldrsComparison::DownGreaterThanUp:
+  case LdrsComparison::DOWN_GREATER_THAN_UP:
     Log.traceln("Tracker::update - LDR DownGreaterThanUp");
     if (!isManualMode()) retract();
     break;
-  case ldrsComparison::Deadband:
+  case LdrsComparison::DEADBAND:
     Log.traceln("Tracker::update - LDR Deadband");
     break;
   default:

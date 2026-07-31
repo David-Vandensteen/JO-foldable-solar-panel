@@ -12,7 +12,6 @@ void Trackers::init() {
   for (uint8_t i = 0; i < TRACKER_MAX; i++) {
     _trackers[i] = new Tracker(
       &_setting->board.pin.tracker[i],
-      &_setting->board.pin.tracker[i].command,
       &_setting->board.pin.mode,
       &_setting->program.trackers,
       &_setting->program.ldrs,
@@ -34,5 +33,4 @@ void Trackers::update() {
   for (uint8_t i = 0; i < TRACKER_MAX; i++) {
     _trackers[i]->update();
   }
-  // TODO command stop/reset
 }

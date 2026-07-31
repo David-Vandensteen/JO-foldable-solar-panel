@@ -2,11 +2,11 @@
 #define LDRS_H
 #include "ldr.h"
 
-enum class ldrsComparison {
-  UpGreaterThanDown,
-  DownGreaterThanUp,
-  Deadband,
-  NotUpdated
+enum class LdrsComparison {
+  UP_GREATER_THAN_DOWN,
+  DOWN_GREATER_THAN_UP,
+  DEADBAND,
+  NOT_UPDATED
 };
 
 class Ldrs {
@@ -15,7 +15,7 @@ public:
   Ldr down;
   explicit Ldrs(Ldr up, Ldr down, uint8_t threshold);
   void init();
-  ldrsComparison update();
+  LdrsComparison update();
 
 private:
   uint8_t _threshold;

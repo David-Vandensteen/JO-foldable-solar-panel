@@ -10,7 +10,6 @@ class Tracker {
 public:
   explicit Tracker(
     SettingBoardPinTracker *trackerPin,
-    SettingBoardPinTrackerCommand *commandPin,
     SettingBoardPinMode *modePin,
     SettingProgramTrackers *trackingSetting,
     SettingProgramLDRs *ldrSetting,
@@ -23,14 +22,14 @@ public:
 
 private:
   enum class State {
-    Idle,
-    Deploying,
-    Retracting,
+    IDLE,
+    DEPLOYING,
+    RETRACTING,
   };
   SettingBoardPinMode *_modePin;
   Ldrs _ldrs;
   Motors _motors;
-  State _state = State::Idle;
+  State _state = State::IDLE;
   SettingProgramMotor *_motorSetting;
   unsigned long _trackingInterval;
   bool isManualMode();

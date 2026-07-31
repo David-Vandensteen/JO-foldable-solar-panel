@@ -39,6 +39,10 @@ void Command::init() {
   );
 }
 
+CommandState Command::getState() {
+  return _state;
+}
+
 CommandState Command::update() {
   _hold.update(digitalRead(_command->stop) == LOW);
   return _state;

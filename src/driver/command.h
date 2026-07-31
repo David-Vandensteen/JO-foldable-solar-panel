@@ -14,6 +14,7 @@ class Command {
 public:
   explicit Command(SettingBoardPinTrackerCommand *command);
   void init();
+  CommandState getState();
   CommandState update();
 
 private:

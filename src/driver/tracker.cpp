@@ -50,7 +50,7 @@ Tracker::Tracker(
 
 void Tracker::init() {
   Log.traceln("Tracker::init");
-  _state = State::IDLE;
+  _state = TrackerState::IDLE;
   _ldrs.init();
   _motors.init();
   _command.init();
@@ -58,19 +58,19 @@ void Tracker::init() {
 
 void Tracker::deploy() {
   Log.traceln("Tracker::deploy");
-  _state = State::DEPLOYING;
+  _state = TrackerState::DEPLOY;
   _motors.deploy(_motorSetting->speed);
 }
 
 void Tracker::retract() {
   Log.traceln("Tracker::retract");
-  _state = State::RETRACTING;
+  _state = TrackerState::RETRACT;
   _motors.retract(_motorSetting->speed);
 }
 
 void Tracker::stop() {
   Log.traceln("Tracker::stop");
-  _state = State::IDLE;
+  _state = TrackerState::IDLE;
   _motors.stop();
 }
 
@@ -78,12 +78,12 @@ bool Tracker::isManualMode() {
   return digitalRead(_modePin->manual) == HIGH;
 }
 
-void Tracker::update() {
+TrackerState Tracker::update() {
   CommandState commandState = _command.update();
   if (commandState == CommandState::STOP) {
     Log.traceln("Tracker::update - Command STOP");
     stop();
-    return;
+    return TrackerState::STOP;
   } else if (commandState == CommandState::RESET) {
     Log.traceln("Tracker::update - Command RESET");
     stop();
@@ -107,4 +107,5 @@ void Tracker::update() {
   default:
     break;
   }
+  return TrackerState::IDLE;
 }

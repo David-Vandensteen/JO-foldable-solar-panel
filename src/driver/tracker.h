@@ -6,6 +6,13 @@
 #include "motors.h"
 #include "setting.h"
 
+enum class TrackerState {
+  IDLE,
+  DEPLOY,
+  RETRACT,
+  STOP
+};
+
 class Tracker {
 public:
   explicit Tracker(
@@ -18,22 +25,16 @@ public:
     SettingProgramMotor *motorSetting
   );
   void init();
-  void update();
+  TrackerState update();
 
 private:
-  enum class State {
-    IDLE,
-    DEPLOYING,
-    RETRACTING,
-  };
   SettingBoardPinMode *_modePin;
   Ldrs _ldrs;
   Motors _motors;
-  State _state = State::IDLE;
+  TrackerState _state = TrackerState::IDLE;
   SettingProgramMotor *_motorSetting;
   Command _command;
   bool isManualMode();
-  void sampling();
   void deploy();
   void retract();
   void stop();

@@ -1,6 +1,7 @@
 #ifndef TRACKER_H
 #define TRACKER_H
 #include <Arduino.h>
+#include <dv_every_interval.h>
 #include "command.h"
 #include "ldrs.h"
 #include "motors.h"
@@ -28,16 +29,20 @@ public:
   TrackerState update();
 
 private:
+  static void onIntervalTick(void *ctx);
   SettingBoardPinMode *_modePin;
   Ldrs _ldrs;
   Motors _motors;
   TrackerState _state = TrackerState::IDLE;
   SettingProgramMotor *_motorSetting;
   Command _command;
+  SettingProgramTrackers *_trackersSetting;
+  DV_EveryInterval _interval;
   bool isManualMode();
   void deploy();
   void retract();
   void stop();
+  void interval();
 };
 
 #endif

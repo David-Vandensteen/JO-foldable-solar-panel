@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <ArduinoLog.h>
+#include <dv_every_interval.h>
 #include "command.h"
 #include "setting.h"
 #include "tracker.h"
@@ -45,8 +46,8 @@ Tracker::Tracker(
         pwmSetting->resolution
       )
     ),
-    _command(&trackerPin->command) {}
-
+    _command(&trackerPin->command),
+    _trackersSetting(trackersSetting) {}
 
 void Tracker::init() {
   Log.traceln("Tracker::init");
@@ -54,6 +55,9 @@ void Tracker::init() {
   _ldrs.init();
   _motors.init();
   _command.init();
+  _interval
+    .setInterval(_trackersSetting->interval)
+    .setCallback(Tracker::onIntervalTick, this);
 }
 
 void Tracker::deploy() {
@@ -108,4 +112,18 @@ TrackerState Tracker::update() {
     break;
   }
   return TrackerState::IDLE;
+}
+
+void Tracker::onIntervalTick(void *ctx) {
+  if (ctx == nullptr) {
+    return;
+  }
+
+  Tracker *self = static_cast<Tracker *>(ctx);
+  self->interval();
+}
+
+void Tracker::interval() {
+  Log.traceln("Tracker::interval");
+  _ldrs.update();
 }

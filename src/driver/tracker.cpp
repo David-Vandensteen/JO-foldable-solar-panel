@@ -8,6 +8,7 @@
 #include "ldrs.h"
 #include "motor.h"
 
+// Public
 Tracker::Tracker(
   SettingBoardPinTracker *trackerPin,
   SettingBoardPinMode *modePin,
@@ -60,6 +61,22 @@ void Tracker::init() {
     .setCallback(Tracker::onIntervalTick, this);
 }
 
+TrackerState Tracker::update() {
+  CommandState commandState = _command.update();
+  if (commandState == CommandState::STOP) {
+    Log.traceln("Tracker::update - Command STOP");
+    stop();
+    return TrackerState::STOP;
+  } else if (commandState == CommandState::RESET) {
+    Log.traceln("Tracker::update - Command RESET");
+    stop();
+    // TODO: reset behavior
+  }
+
+  return TrackerState::IDLE;
+}
+
+// Private
 void Tracker::deploy() {
   Log.traceln("Tracker::deploy");
   _state = TrackerState::DEPLOY;
@@ -82,19 +99,18 @@ bool Tracker::isManualMode() {
   return digitalRead(_modePin->manual) == HIGH;
 }
 
-TrackerState Tracker::update() {
-  CommandState commandState = _command.update();
-  if (commandState == CommandState::STOP) {
-    Log.traceln("Tracker::update - Command STOP");
-    stop();
-    return TrackerState::STOP;
-  } else if (commandState == CommandState::RESET) {
-    Log.traceln("Tracker::update - Command RESET");
-    stop();
-    // TODO: reset behavior
+void Tracker::onIntervalTick(void *ctx) {
+  if (ctx == nullptr) {
+    return;
   }
 
-  LdrsComparison comparison = _ldrs.update();
+  Tracker *self = static_cast<Tracker *>(ctx);
+  self->interval();
+}
+
+void Tracker::interval() {
+  Log.traceln("Tracker::interval");
+  LdrsComparison comparison = _ldrs.update(); // hummm TODO
   switch (comparison)
   {
   case LdrsComparison::UP_GREATER_THAN_DOWN:
@@ -111,19 +127,4 @@ TrackerState Tracker::update() {
   default:
     break;
   }
-  return TrackerState::IDLE;
-}
-
-void Tracker::onIntervalTick(void *ctx) {
-  if (ctx == nullptr) {
-    return;
-  }
-
-  Tracker *self = static_cast<Tracker *>(ctx);
-  self->interval();
-}
-
-void Tracker::interval() {
-  Log.traceln("Tracker::interval");
-  _ldrs.update();
 }

@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <ArduinoLog.h>
+#include <dv_every_interval.h>
 #include <dv_average_accumulator8.h>
 #include "ldr.h"
 #include "setting.h"
@@ -7,35 +8,37 @@
 Ldr::Ldr(uint8_t pin, uint16_t adcResolution, SettingProgramLDRs *ldrSetting)
   : _pin(pin),
     _adcResolution(adcResolution),
-    _samplingInterval(ldrSetting->sampling.interval),
-    _lastUpdateTime(0) {}
+    _ldrSetting(ldrSetting) {}
 
-unsigned long Ldr::getLastUpdateTime() {
-  return _lastUpdateTime;
-}
+void Ldr::onSamplingTick(void *ctx) {
+  if (ctx == nullptr) {
+    return;
+  }
 
-unsigned long Ldr::getSamplingInterval() {
-  return _samplingInterval;
+  Ldr *self = static_cast<Ldr *>(ctx);
+  self->sampling();
 }
 
 void Ldr::init() {
   Log.traceln("Ldr::init");
   pinMode(_pin, INPUT);
+  _samplingInterval
+    .setInterval(_ldrSetting->sampling.interval)
+    .setCallback(Ldr::onSamplingTick, this);
+}
+
+uint8_t Ldr::sampling() {
+  uint16_t rawInput = analogRead(_pin);
+  uint8_t inputPercent = (uint8_t)(((uint32_t)rawInput * 100U) / _adcResolution);
+  _average.add(inputPercent);
+  return _average.getValue();
 }
 
 uint8_t Ldr::update() {
-  _lastUpdateTime = millis();
-  uint16_t rawInput = analogRead(_pin);
-  uint8_t inputPercent = (uint8_t)(((uint32_t)rawInput * 100U) / _adcResolution);
+  _samplingInterval.update();
+  return _average.getValue();
+}
 
-
-  if (LOG) {
-    Serial.print("input-id"); Serial.print(_pin); Serial.print(":");  Serial.print(inputPercent);
-    Serial.println("");
-
-    Serial.print("filtered-id"); Serial.print(_pin); Serial.print(":"); Serial.print(_average.getValue());
-    Serial.println("");
-  }
-
-  return _average.add(inputPercent);
+void Ldr::reset() {
+  _average.reset();
 }

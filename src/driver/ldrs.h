@@ -1,6 +1,7 @@
 #ifndef LDRS_H
 #define LDRS_H
 #include "ldr.h"
+#include "setting.h"
 
 enum class LdrsComparison {
   UP_GREATER_THAN_DOWN,
@@ -13,12 +14,12 @@ class Ldrs {
 public:
   Ldr up;
   Ldr down;
-  explicit Ldrs(Ldr up, Ldr down, uint8_t threshold);
+  explicit Ldrs(Ldr up, Ldr down, SettingProgramLDRs *ldrSetting);
   void init();
   LdrsComparison update();
 
 private:
-  uint8_t _threshold;
+  SettingProgramLDRs *_ldrSetting;
 };
 
 #endif

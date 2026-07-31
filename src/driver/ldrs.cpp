@@ -2,11 +2,12 @@
 #include <ArduinoLog.h>
 #include "ldr.h"
 #include "ldrs.h"
+#include "setting.h"
 
-Ldrs::Ldrs(Ldr up, Ldr down, uint8_t threshold)
+Ldrs::Ldrs(Ldr up, Ldr down, SettingProgramLDRs *ldrSetting)
   : up(up),
     down(down),
-    _threshold(threshold)
+    _ldrSetting(ldrSetting)
 {}
 
 void Ldrs::init() {
@@ -29,7 +30,7 @@ LdrsComparison Ldrs::update() {
   uint8_t downValue = down.update();
 
   const int16_t delta = (int16_t)upValue - (int16_t)downValue;
-  if (abs(delta) <= _threshold) {
+  if (abs(delta) <= _ldrSetting->threshold) {
     return LdrsComparison::DEADBAND;
   }
   if (delta > 0) {

@@ -32,8 +32,8 @@ private:
   State _state = State::IDLE;
   SettingProgramMotor *_motorSetting;
   Command _command;
-  unsigned long _trackingInterval;
   bool isManualMode();
+  void sampling();
   void deploy();
   void retract();
   void stop();

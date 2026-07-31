@@ -45,8 +45,8 @@ Tracker::Tracker(
         pwmSetting->resolution
       )
     ),
-    _command(&trackerPin->command),
-    _trackingInterval(trackersSetting->interval) {};
+    _command(&trackerPin->command) {}
+
 
 void Tracker::init() {
   Log.traceln("Tracker::init");

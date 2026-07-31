@@ -6,8 +6,7 @@
 enum class LdrsComparison {
   UP_GREATER_THAN_DOWN,
   DOWN_GREATER_THAN_UP,
-  DEADBAND,
-  NOT_UPDATED
+  DEADBAND
 };
 
 class Ldrs {

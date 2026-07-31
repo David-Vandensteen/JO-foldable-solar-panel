@@ -63,7 +63,6 @@ void Tracker::init() {
 
 TrackerState Tracker::update() {
   CommandState commandState = _command.update();
-  _interval.update();
   if (commandState == CommandState::STOP) {
     Log.traceln("Tracker::update - Command STOP");
     stop();
@@ -73,9 +72,9 @@ TrackerState Tracker::update() {
     stop();
     // TODO: reset behavior
   }
-  _ldrs.update();
+  _interval.update();
 
-  return TrackerState::IDLE;
+  return _state;
 }
 
 // Private
@@ -112,7 +111,7 @@ void Tracker::onIntervalTick(void *ctx) {
 
 void Tracker::interval() {
   Log.traceln("Tracker::interval");
-  LdrsComparison comparison = _ldrs.getComparison();
+  LdrsComparison comparison = _ldrs.update();
   switch (comparison) {
   case LdrsComparison::UP_GREATER_THAN_DOWN:
     Log.traceln("Tracker::update - LDR UP_GREATER_THAN_DOWN");

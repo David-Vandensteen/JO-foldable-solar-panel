@@ -15,8 +15,9 @@ public:
   Ldr up;
   Ldr down;
   explicit Ldrs(Ldr up, Ldr down, SettingProgramLDRs *ldrSetting);
-  void init();
+  LdrsComparison getComparison();
   LdrsComparison update();
+  void init();
 
 private:
   SettingProgramLDRs *_ldrSetting;

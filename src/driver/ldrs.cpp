@@ -16,6 +16,21 @@ void Ldrs::init() {
   down.init();
 }
 
+LdrsComparison Ldrs::getComparison() {
+  uint8_t upValue = up.getAveragePercentValue();
+  uint8_t downValue = down.getAveragePercentValue();
+
+  const int16_t delta = (int16_t)upValue - (int16_t)downValue;
+  if (abs(delta) <= _ldrSetting->threshold) {
+    return LdrsComparison::DEADBAND;
+  }
+  if (delta > 0) {
+    return LdrsComparison::UP_GREATER_THAN_DOWN;
+  }
+
+  return LdrsComparison::DOWN_GREATER_THAN_UP;
+}
+
 LdrsComparison Ldrs::update() {
   // if (
   //   millis() - up.getLastUpdateTime() < up.getSamplingInterval()

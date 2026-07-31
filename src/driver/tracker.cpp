@@ -63,6 +63,7 @@ void Tracker::init() {
 
 TrackerState Tracker::update() {
   CommandState commandState = _command.update();
+  _interval.update();
   if (commandState == CommandState::STOP) {
     Log.traceln("Tracker::update - Command STOP");
     stop();

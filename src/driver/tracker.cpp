@@ -124,6 +124,9 @@ void Tracker::interval() {
     break;
   case LdrsComparison::DEADBAND:
     Log.traceln("Tracker::update - LDR DEADBAND");
+    if (!isManualMode() && _state != TrackerState::IDLE) {
+      stop();
+    }
     break;
   default:
     break;

@@ -4,6 +4,7 @@
 #define SETTING_BOARD_ADC_RESOLUTION 4095
 #define SETTING_BOARD_PWM_RESOLUTION 255
 #define SETTING_BOARD_SERIAL_BAUD_RATE 115200
+#define SETTING_PROGRAM_TRACKERS_INTERVAL 3 * (60 * 1000)
 #define SETTING_PROGRAM_LDR_THRESHOLD 10
 #define SETTING_PROGRAM_LDR_SAMPLING_INTERVAL 1000
 #define SETTING_PROGRAM_MOTOR_SPEED 30
@@ -25,6 +26,7 @@ void settingInit(Setting *setting) {
     setting->board.pin.led = 15;
     setting->board.pin.mode.manual = 2;
     setting->program.version = VERSION;
+    setting->program.trackers.interval = SETTING_PROGRAM_TRACKERS_INTERVAL;
     setting->program.ldrs.threshold = SETTING_PROGRAM_LDR_THRESHOLD;
     setting->program.ldrs.sampling.interval = SETTING_PROGRAM_LDR_SAMPLING_INTERVAL;
     setting->program.motors.speed = SETTING_PROGRAM_MOTOR_SPEED;

@@ -6,7 +6,7 @@
 
 enum class CommandState {
   RUNNING,
-  STOPPED,
+  STOP,
   RESET
 };
 

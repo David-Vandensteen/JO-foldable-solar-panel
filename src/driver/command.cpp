@@ -10,7 +10,7 @@ void Command::onStopHold(void *ctx) {
   }
   Command *self = static_cast<Command *>(ctx);
   Log.noticeln("Command::stop pressed");
-  self->_state = CommandState::STOPPED;
+  self->_state = CommandState::STOP;
 }
 
 void Command::onResetHold(void *ctx) {

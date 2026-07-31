@@ -31,6 +31,7 @@ private:
   Motors _motors;
   State _state = State::IDLE;
   SettingProgramMotor *_motorSetting;
+  Command _command;
   unsigned long _trackingInterval;
   bool isManualMode();
   void deploy();

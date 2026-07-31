@@ -45,6 +45,7 @@ Tracker::Tracker(
         pwmSetting->resolution
       )
     ),
+    _command(&trackerPin->command),
     _trackingInterval(trackersSetting->interval) {};
 
 void Tracker::init() {
@@ -52,6 +53,7 @@ void Tracker::init() {
   _state = State::IDLE;
   _ldrs.init();
   _motors.init();
+  _command.init();
 }
 
 void Tracker::deploy() {
@@ -77,6 +79,17 @@ bool Tracker::isManualMode() {
 }
 
 void Tracker::update() {
+  CommandState commandState = _command.update();
+  if (commandState == CommandState::STOP) {
+    Log.traceln("Tracker::update - Command STOP");
+    stop();
+    return;
+  } else if (commandState == CommandState::RESET) {
+    Log.traceln("Tracker::update - Command RESET");
+    stop();
+    // TODO: reset behavior
+  }
+
   LdrsComparison comparison = _ldrs.update();
   switch (comparison)
   {

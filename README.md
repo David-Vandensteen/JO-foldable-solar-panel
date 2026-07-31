@@ -26,12 +26,19 @@ Le code source est en cours de développement ici :
 - **Bibliothèques à installer via le Library Manager de l’IDE Arduino** :
   - **ArduinoLog** (Thijs Elenbaas)  
     (Outils → Gérer les bibliothèques… → Rechercher « ArduinoLog » → Installer)
-  - **FIR-Filter** (Thomas Kaufmann)  
-    (Outils → Gérer les bibliothèques… → Rechercher « FIR-Filter » → Installer)
   - **dv_led_blink** (David Vandensteen)  
     (Outils → Gérer les bibliothèques… → Rechercher « dv_led_blink » → Installer)
+  - **dv_every_interval** (David Vandensteen)  
+    (Outils → Gérer les bibliothèques… → Rechercher « dv_every_interval » → Installer)
+  - **dv_average_accumulator8** (David Vandensteen)  
+    (Outils → Gérer les bibliothèques… → Rechercher « dv_average_accumulator8 » → Installer)
+  - **Adafruit MPU6050** (Adafruit)
+    (Outils → Gérer les bibliothèques… → Rechercher « Adafruit MPU6050 » → Installer)
 
-- Paramétrage board dans l'IDE Arduine
+- Pour un test simple, la bibliothèque Adafruit_MPU6050 fonctionne avec le MPU6500 pour lire accéléromètre et gyroscope.
+- Pour des fonctions avancées du MPU6500, utiliser une bibliothèque dédiée ou Wire.h.
+
+- Paramétrage board dans l'IDE Arduino
   - **ESP32 Dev Module**
   - Tools -> Upload Speed -> 115200
   
@@ -39,5 +46,3 @@ Le code source est en cours de développement ici :
 - [Fonctionnement basique du L298N](tests/L298N/01-basic)
 - [Client WIFI basique sur ESP32](tests/wifi)
 - [Serveur http sur ESP32](tests/http-server)
-
-

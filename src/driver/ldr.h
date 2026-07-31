@@ -14,13 +14,13 @@ public:
   void reset();
 
 private:
-  static void onSamplingTick(void *ctx);
+  static void onIntervalTick(void *ctx);
   DV_AverageAccumulator8 _average;
   DV_EveryInterval _samplingInterval;
   SettingProgramLDRs *_ldrSetting;
   uint16_t _adcResolution;
   uint8_t _pin;
-  uint8_t sampling();
+  uint8_t interval();
 };
 
 #endif

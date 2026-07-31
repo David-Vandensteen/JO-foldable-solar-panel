@@ -9,8 +9,9 @@ class Ldr {
 public:
   int raw;
   explicit Ldr(uint8_t pin, uint16_t adcResolution, SettingProgramLDRs *ldrSetting);
-  void init();
+  uint8_t getAveragePercentValue();
   uint8_t update();
+  void init();
   void reset();
 
 private:

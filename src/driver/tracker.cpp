@@ -72,6 +72,7 @@ TrackerState Tracker::update() {
     stop();
     // TODO: reset behavior
   }
+  _ldrs.update();
 
   return TrackerState::IDLE;
 }
@@ -110,19 +111,18 @@ void Tracker::onIntervalTick(void *ctx) {
 
 void Tracker::interval() {
   Log.traceln("Tracker::interval");
-  LdrsComparison comparison = _ldrs.update(); // hummm TODO
-  switch (comparison)
-  {
+  LdrsComparison comparison = _ldrs.getComparison();
+  switch (comparison) {
   case LdrsComparison::UP_GREATER_THAN_DOWN:
-    Log.traceln("Tracker::update - LDR UpGreaterThanDown");
+    Log.traceln("Tracker::update - LDR UP_GREATER_THAN_DOWN");
     if (!isManualMode()) deploy();
     break;
   case LdrsComparison::DOWN_GREATER_THAN_UP:
-    Log.traceln("Tracker::update - LDR DownGreaterThanUp");
+    Log.traceln("Tracker::update - LDR DOWN_GREATER_THAN_UP");
     if (!isManualMode()) retract();
     break;
   case LdrsComparison::DEADBAND:
-    Log.traceln("Tracker::update - LDR Deadband");
+    Log.traceln("Tracker::update - LDR DEADBAND");
     break;
   default:
     break;

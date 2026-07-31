@@ -16,7 +16,7 @@ public:
 private:
   static void onIntervalTick(void *ctx);
   DV_AverageAccumulator8 _average;
-  DV_EveryInterval _samplingInterval;
+  DV_EveryInterval _interval;
   SettingProgramLDRs *_ldrSetting;
   uint16_t _adcResolution;
   uint8_t _pin;

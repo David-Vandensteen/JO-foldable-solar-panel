@@ -14,13 +14,13 @@ Ldr::Ldr(uint8_t pin, uint16_t adcResolution, SettingProgramLDRs *ldrSetting)
 void Ldr::init() {
   Log.traceln("Ldr::init");
   pinMode(_pin, INPUT);
-  _samplingInterval
+  _interval
     .setInterval(_ldrSetting->sampling.interval)
     .setCallback(Ldr::onIntervalTick, this);
 }
 
 uint8_t Ldr::update() {
-  _samplingInterval.update();
+  _interval.update();
   return _average.getValue();
 }
 

@@ -135,7 +135,7 @@ void logFatal(const char *message);
 void settingInit(Setting *setting);
 bool assertSetting(Setting *setting);
 
-#if BOARD_ESP32
+#ifdef BOARD_ESP32
 void logSetting(Setting *setting);
 #endif
 

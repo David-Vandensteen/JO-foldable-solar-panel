@@ -51,7 +51,7 @@ Tracker::Tracker(
     _trackersSetting(trackersSetting) {}
 
 void Tracker::init() {
-  Log.traceln("Tracker::init");
+  Log.traceln("Tracker::init - mode: %s", isManualMode() ? "manual" : "auto");
   _state = TrackerState::IDLE;
   pinMode(_modePin->manual, INPUT);
   _ldrs.init();
@@ -112,7 +112,7 @@ void Tracker::onIntervalTick(void *ctx) {
 }
 
 void Tracker::interval() {
-  Log.traceln("Tracker::interval");
+  Log.traceln("Tracker::interval - mode: %s", isManualMode() ? "manual" : "automa");
   if (isManualMode()) {
     if (_state != TrackerState::IDLE) {
       stop();

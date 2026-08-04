@@ -74,6 +74,7 @@ TrackerState Tracker::update() {
     // TODO: reset behavior
   }
   _interval.update();
+  _ldrs.update();
 
   return _state;
 }

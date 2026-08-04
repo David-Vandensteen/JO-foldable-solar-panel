@@ -10,26 +10,26 @@
 #define SETTING_PROGRAM_MOTOR_SPEED 30
 
 void settingInit(Setting *setting) {
-    setting->board.adc.resolution = SETTING_BOARD_ADC_RESOLUTION;
-    setting->board.pwm.resolution = SETTING_BOARD_PWM_RESOLUTION;
-    setting->board.serial.baudRate = SETTING_BOARD_SERIAL_BAUD_RATE;
-    setting->board.pin.tracker[TRACKER_1].ldr.up = 32;
-    setting->board.pin.tracker[TRACKER_1].ldr.down = 33;
-    setting->board.pin.tracker[TRACKER_1].motors.ena = 25;
-    setting->board.pin.tracker[TRACKER_1].motors.in1 = 26;
-    setting->board.pin.tracker[TRACKER_1].motors.in2 = 27;
-    setting->board.pin.tracker[TRACKER_1].motors.enb = 14;
-    setting->board.pin.tracker[TRACKER_1].motors.in3 = 12;
-    setting->board.pin.tracker[TRACKER_1].motors.in4 = 13;
-    setting->board.pin.tracker[TRACKER_1].command.stop = 4;
-    setting->board.pin.tracker[TRACKER_1].led = 2; // LED_BUILTIN
-    setting->board.pin.led = 15;
-    setting->board.pin.mode.manual = 2;
-    setting->program.version = VERSION;
-    setting->program.trackers.interval = SETTING_PROGRAM_TRACKERS_INTERVAL;
-    setting->program.ldrs.threshold = SETTING_PROGRAM_LDR_THRESHOLD;
-    setting->program.ldrs.sampling.interval = SETTING_PROGRAM_LDR_SAMPLING_INTERVAL;
-    setting->program.motors.speed = SETTING_PROGRAM_MOTOR_SPEED;
+  setting->board.adc.resolution = SETTING_BOARD_ADC_RESOLUTION;
+  setting->board.pwm.resolution = SETTING_BOARD_PWM_RESOLUTION;
+  setting->board.serial.baudRate = SETTING_BOARD_SERIAL_BAUD_RATE;
+  setting->board.pin.tracker[TRACKER_1].ldr.up = 32;
+  setting->board.pin.tracker[TRACKER_1].ldr.down = 33;
+  setting->board.pin.tracker[TRACKER_1].motors.ena = 25;
+  setting->board.pin.tracker[TRACKER_1].motors.in1 = 26;
+  setting->board.pin.tracker[TRACKER_1].motors.in2 = 27;
+  setting->board.pin.tracker[TRACKER_1].motors.enb = 14;
+  setting->board.pin.tracker[TRACKER_1].motors.in3 = 12;
+  setting->board.pin.tracker[TRACKER_1].motors.in4 = 13;
+  setting->board.pin.tracker[TRACKER_1].command.stop = 4;
+  setting->board.pin.tracker[TRACKER_1].led = 2; // LED_BUILTIN
+  setting->board.pin.led = 15;
+  setting->board.pin.mode.manual = 2;
+  setting->program.version = VERSION;
+  setting->program.trackers.interval = SETTING_PROGRAM_TRACKERS_INTERVAL;
+  setting->program.ldrs.threshold = SETTING_PROGRAM_LDR_THRESHOLD;
+  setting->program.ldrs.sampling.interval = SETTING_PROGRAM_LDR_SAMPLING_INTERVAL;
+  setting->program.motors.speed = SETTING_PROGRAM_MOTOR_SPEED;
 }
 
 #endif

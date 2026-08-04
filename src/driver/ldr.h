@@ -11,7 +11,6 @@ public:
   uint8_t getAveragePercentValue();
   uint8_t update();
   void init();
-  void reset();
 
 private:
   static void onIntervalTick(void *ctx);

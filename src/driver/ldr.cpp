@@ -29,10 +29,6 @@ uint8_t Ldr::update() {
   return _average.getValue();
 }
 
-void Ldr::reset() {
-  _average.reset();
-}
-
 // Private
 void Ldr::onIntervalTick(void *ctx) {
   if (ctx == nullptr) {

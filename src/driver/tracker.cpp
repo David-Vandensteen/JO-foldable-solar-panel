@@ -31,7 +31,7 @@ Tracker::Tracker(
         adcSetting->resolution,
         ldrSetting
       ),
-      ldrSetting->threshold
+      ldrSetting
     ),
     _motors(
       Motor(

@@ -20,7 +20,7 @@ public:
     SettingBoardPinTracker *trackerPin,
     SettingBoardPinMode *modePin,
     SettingProgramTrackers *trackingSetting,
-    SettingProgramLDRs *ldrSetting,
+    SettingProgramLDRs *ldrsSetting,
     SettingBoardADC *adcSetting,
     SettingBoardPWM *pwmSetting,
     SettingProgramMotor *motorSetting

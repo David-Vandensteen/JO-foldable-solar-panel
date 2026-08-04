@@ -13,7 +13,7 @@ Tracker::Tracker(
   SettingBoardPinTracker *trackerPin,
   SettingBoardPinMode *modePin,
   SettingProgramTrackers *trackersSetting,
-  SettingProgramLDRs *ldrSetting,
+  SettingProgramLDRs *ldrsSetting,
   SettingBoardADC *adcSetting,
   SettingBoardPWM *pwmSetting,
   SettingProgramMotor *motorSetting
@@ -24,14 +24,14 @@ Tracker::Tracker(
       Ldr(
         trackerPin->ldr.up,
         adcSetting->resolution,
-        ldrSetting
+        ldrsSetting
       ),
       Ldr(
         trackerPin->ldr.down,
         adcSetting->resolution,
-        ldrSetting
+        ldrsSetting
       ),
-      ldrSetting
+      ldrsSetting
     ),
     _motors(
       Motor(

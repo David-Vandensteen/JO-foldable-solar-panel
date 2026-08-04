@@ -7,7 +7,7 @@
 
 class Ldr {
 public:
-  explicit Ldr(uint8_t pin, uint16_t adcResolution, SettingProgramLDRs *ldrSetting);
+  explicit Ldr(uint8_t pin, uint16_t adcResolution, SettingProgramLDRs *ldrsSetting);
   uint8_t getAveragePercentValue();
   uint8_t update();
   void init();
@@ -17,7 +17,7 @@ private:
   static void onIntervalTick(void *ctx);
   DV_AverageAccumulator8 _average;
   DV_EveryInterval _interval;
-  SettingProgramLDRs *_ldrSetting;
+  SettingProgramLDRs *_ldrsSetting;
   uint16_t _adcResolution;
   uint8_t _pin;
   uint8_t interval();

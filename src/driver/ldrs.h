@@ -13,13 +13,13 @@ class Ldrs {
 public:
   Ldr up;
   Ldr down;
-  explicit Ldrs(Ldr up, Ldr down, SettingProgramLDRs *ldrSetting);
+  explicit Ldrs(Ldr up, Ldr down, SettingProgramLDRs *ldrsSetting);
   LdrsComparison getComparison();
   LdrsComparison update();
   void init();
 
 private:
-  SettingProgramLDRs *_ldrSetting;
+  SettingProgramLDRs *_ldrsSetting;
 };
 
 #endif

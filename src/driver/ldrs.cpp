@@ -4,10 +4,10 @@
 #include "ldrs.h"
 #include "setting.h"
 
-Ldrs::Ldrs(Ldr up, Ldr down, SettingProgramLDRs *ldrSetting)
+Ldrs::Ldrs(Ldr up, Ldr down, SettingProgramLDRs *ldrsSetting)
   : up(up),
     down(down),
-    _ldrSetting(ldrSetting)
+    _ldrsSetting(ldrsSetting)
 {}
 
 void Ldrs::init() {
@@ -21,7 +21,7 @@ LdrsComparison Ldrs::getComparison() {
   uint8_t downValue = down.getAveragePercentValue();
 
   const int16_t delta = (int16_t)upValue - (int16_t)downValue;
-  if (abs(delta) <= _ldrSetting->threshold) {
+  if (abs(delta) <= _ldrsSetting->threshold) {
     return LdrsComparison::DEADBAND;
   }
   if (delta > 0) {

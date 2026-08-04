@@ -6,16 +6,16 @@
 #include "setting.h"
 
 // Public
-Ldr::Ldr(uint8_t pin, uint16_t adcResolution, SettingProgramLDRs *ldrSetting)
+Ldr::Ldr(uint8_t pin, uint16_t adcResolution, SettingProgramLDRs *ldrsSetting)
   : _pin(pin),
     _adcResolution(adcResolution),
-    _ldrSetting(ldrSetting) {}
+    _ldrsSetting(ldrsSetting) {}
 
 void Ldr::init() {
-  Log.traceln("Ldr::init - pin: %d, sampling interval: %lu", _pin, _ldrSetting->sampling.interval);
+  Log.traceln("Ldr::init - pin: %d, sampling interval: %lu", _pin, _ldrsSetting->sampling.interval);
   pinMode(_pin, INPUT);
   _interval
-    .setInterval(_ldrSetting->sampling.interval)
+    .setInterval(_ldrsSetting->sampling.interval)
     .setCallback(Ldr::onIntervalTick, this);
 }
 

@@ -12,8 +12,8 @@
 //  BOARD
 // ------------------
 // #define BOARD_NANO
-#define BOARD_UNO
-// #define BOARD_ESP32
+// #define BOARD_UNO
+#define BOARD_ESP32
 
 #ifdef BOARD_UNO
 #undef TRACKER_MAX

@@ -45,7 +45,8 @@ Tracker::Tracker(
         trackerPin->motors.in4,
         trackerPin->motors.enb,
         pwmSetting->resolution
-      )
+      ),
+      motorSetting->speed
     ),
     _command(&trackerPin->command),
     _trackersSetting(trackersSetting) {}
@@ -83,13 +84,13 @@ TrackerState Tracker::update() {
 void Tracker::deploy() {
   Log.traceln("Tracker::deploy");
   _state = TrackerState::DEPLOY;
-  _motors.deploy(_motorSetting->speed);
+  _motors.deploy();
 }
 
 void Tracker::retract() {
   Log.traceln("Tracker::retract");
   _state = TrackerState::RETRACT;
-  _motors.retract(_motorSetting->speed);
+  _motors.retract();
 }
 
 void Tracker::stop() {

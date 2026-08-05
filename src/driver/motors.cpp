@@ -2,22 +2,22 @@
 #include "motors.h"
 
 // Public
-Motors::Motors(Motor m1, Motor m2)
-  : motor1(m1), motor2(m2) {}
+Motors::Motors(Motor m1, Motor m2, uint8_t speed)
+  : motor1(m1), motor2(m2), speed(speed) {}
 
 void Motors::init() {
   motor1.init();
   motor2.init();
 }
 
-void Motors::deploy(uint8_t speedPercent) {
-  motor1.deploy(speedPercent);
-  motor2.deploy(speedPercent);
+void Motors::deploy() {
+  motor1.deploy(speed);
+  motor2.deploy(speed);
 }
 
-void Motors::retract(uint8_t speedPercent) {
-  motor1.retract(speedPercent);
-  motor2.retract(speedPercent);
+void Motors::retract() {
+  motor1.retract(speed);
+  motor2.retract(speed);
 }
 
 void Motors::stop() {

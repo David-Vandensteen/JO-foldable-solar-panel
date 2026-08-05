@@ -7,7 +7,8 @@
 #define SETTING_PROGRAM_TRACKERS_INTERVAL 3 * (60 * 1000)
 #define SETTING_PROGRAM_LDR_THRESHOLD 10
 #define SETTING_PROGRAM_LDR_SAMPLING_INTERVAL 1000
-#define SETTING_PROGRAM_MOTOR_SPEED 30
+#define SETTING_PROGRAM_MOTORS_SPEED 30
+#define SETTING_PROGRAM_MOTORS_TIMEOUT 1000
 
 void settingInit(Setting *setting) {
   setting->board.adc.resolution = SETTING_BOARD_ADC_RESOLUTION;
@@ -29,7 +30,8 @@ void settingInit(Setting *setting) {
   setting->program.trackers.interval = SETTING_PROGRAM_TRACKERS_INTERVAL;
   setting->program.ldrs.threshold = SETTING_PROGRAM_LDR_THRESHOLD;
   setting->program.ldrs.sampling.interval = SETTING_PROGRAM_LDR_SAMPLING_INTERVAL;
-  setting->program.motors.speed = SETTING_PROGRAM_MOTOR_SPEED;
+  setting->program.motors.speed = SETTING_PROGRAM_MOTORS_SPEED;
+  setting->program.motors.timeout = SETTING_PROGRAM_MOTORS_TIMEOUT;
 }
 
 #endif

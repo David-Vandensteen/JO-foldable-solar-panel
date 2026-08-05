@@ -90,8 +90,12 @@ bool assertSetting(Setting *setting) {
     logFatal("LDRs sampling interval must be greater than 0");
     return false;
   }
-  if (setting->program.motors.speed > 100) {
-    logFatal("Motor speed out of range");
+  if (setting->program.motors.speed > 100 || setting->program.motors.speed == 0) {
+    logFatal("Motors speed out of range");
+    return false;
+  }
+  if (setting->program.motors.timeout == 0) {
+    logFatal("Motors timeout must be greater than 0");
     return false;
   }
 
@@ -127,7 +131,8 @@ void logSetting(Setting *setting) {
   Log.traceln("  - Trackers interval: %lu", setting->program.trackers.interval);
   Log.traceln("  - LDRs threshold: %d", setting->program.ldrs.threshold);
   Log.traceln("  - LDRs sampling interval: %lu", setting->program.ldrs.sampling.interval);
-  Log.traceln("  - Motor speed: %d", setting->program.motors.speed);
+  Log.traceln("  - Motors speed: %d", setting->program.motors.speed);
+  Log.traceln("  - Motors timeout: %d", setting->program.motors.timeout);
 }
 
 #endif

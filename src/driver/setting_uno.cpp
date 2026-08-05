@@ -46,6 +46,7 @@ LDR 3 - night sensor:
 #define SETTING_PROGRAM_LDRS_THRESHOLD 10
 #define SETTING_PROGRAM_LDRS_SAMPLING_INTERVAL 1000
 #define SETTING_PROGRAM_MOTORS_SPEED 30
+#define SETTING_PROGRAM_MOTORS_TIMEOUT 1000
 
 void settingInit(Setting *setting) {
 	setting->board.adc.resolution = SETTING_BOARD_ADC_RESOLUTION;
@@ -68,6 +69,7 @@ void settingInit(Setting *setting) {
 	setting->program.ldrs.threshold = SETTING_PROGRAM_LDRS_THRESHOLD;
   setting->program.ldrs.sampling.interval = SETTING_PROGRAM_LDRS_SAMPLING_INTERVAL;
   setting->program.motors.speed = SETTING_PROGRAM_MOTORS_SPEED;
+  setting->program.motors.timeout = SETTING_PROGRAM_MOTORS_TIMEOUT;
 }
 
 #endif

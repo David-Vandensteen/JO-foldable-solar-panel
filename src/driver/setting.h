@@ -115,15 +115,16 @@ typedef struct SettingProgramLDRs {
   SettingProgramLDRsSampling sampling;
 } SettingProgramLDRs;
 
-typedef struct SettingProgramMotor {
+typedef struct SettingProgramMotors {
+  unsigned long timeout;
   uint8_t speed;
-} SettingProgramMotor;
+} SettingProgramMotors;
 
 typedef struct SettingProgram {
   char *version;
   SettingProgramTrackers trackers;
   SettingProgramLDRs ldrs;
-  SettingProgramMotor motors;
+  SettingProgramMotors motors;
 } SettingProgram;
 
 typedef struct Setting {

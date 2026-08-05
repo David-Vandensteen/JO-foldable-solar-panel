@@ -16,7 +16,7 @@ Tracker::Tracker(
   SettingProgramLDRs *ldrsSetting,
   SettingBoardADC *adcSetting,
   SettingBoardPWM *pwmSetting,
-  SettingProgramMotor *motorSetting
+  SettingProgramMotors *motorSetting
 )
   : _motorSetting(motorSetting),
     _modePin(modePin),

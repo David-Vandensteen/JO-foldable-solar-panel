@@ -23,7 +23,7 @@ public:
     SettingProgramLDRs *ldrsSetting,
     SettingBoardADC *adcSetting,
     SettingBoardPWM *pwmSetting,
-    SettingProgramMotor *motorSetting
+    SettingProgramMotors *motorSetting
   );
   void init();
   TrackerState update();
@@ -34,7 +34,7 @@ private:
   Ldrs _ldrs;
   Motors _motors;
   TrackerState _state = TrackerState::IDLE;
-  SettingProgramMotor *_motorSetting;
+  SettingProgramMotors *_motorSetting;
   Command _command;
   SettingProgramTrackers *_trackersSetting;
   DV_EveryInterval _interval;

@@ -45,6 +45,9 @@
   #define LOG_FATAL_SETTING true
 #endif
 
+#define LOG_LDR_INTERVAL true
+#define LOG_TRACKER_INTERVAL true
+
 #define WATCHDOG true
 #define WATCHDOG_INTERVAL 30000
 

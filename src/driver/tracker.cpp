@@ -112,7 +112,9 @@ void Tracker::onIntervalTick(void *ctx) {
 }
 
 void Tracker::interval() {
+  #if LOG_TRACKER_INTERVAL
   Log.traceln("Tracker::interval - mode: %s", isManualMode() ? "manual" : "automa");
+  #endif
   if (isManualMode()) {
     if (_state != TrackerState::IDLE) {
       stop();
@@ -123,15 +125,21 @@ void Tracker::interval() {
   LdrsComparison comparison = _ldrs.update();
   switch (comparison) {
   case LdrsComparison::UP_GREATER_THAN_DOWN:
+    #if LOG_TRACKER_INTERVAL
     Log.traceln("Tracker::update - LDR UP_GREATER_THAN_DOWN");
+    #endif
     deploy();
     break;
   case LdrsComparison::DOWN_GREATER_THAN_UP:
+    #if LOG_TRACKER_INTERVAL
     Log.traceln("Tracker::update - LDR DOWN_GREATER_THAN_UP");
+    #endif
     retract();
     break;
   case LdrsComparison::DEADBAND:
+    #if LOG_TRACKER_INTERVAL
     Log.traceln("Tracker::update - LDR DEADBAND");
+    #endif
     if (_state != TrackerState::IDLE) {
       stop();
     }

@@ -43,6 +43,8 @@ uint8_t Ldr::interval() {
   uint16_t rawInput = analogRead(_pin);
   uint8_t inputPercent = (uint8_t)(((uint32_t)rawInput * 100U) / _adcResolution);
   _average.add(inputPercent);
+  #if LOG_LDR_INTERVAL
   Log.noticeln("ldr-%d:%d, ldr-%d-average:%d", _pin, inputPercent, _pin, _average.getValue());
+  #endif
   return _average.getValue();
 }

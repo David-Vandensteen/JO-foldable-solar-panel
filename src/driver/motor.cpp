@@ -15,7 +15,6 @@ void Motor::init() {
   pinMode(_in1, OUTPUT);
   pinMode(_in2, OUTPUT);
   pinMode(_en, OUTPUT);
-  stop();
 }
 
 bool Motor::isBusy() { return _isBusy; }

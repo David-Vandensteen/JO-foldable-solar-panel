@@ -8,14 +8,17 @@ Motors::Motors(Motor m1, Motor m2, uint8_t speed)
 void Motors::init() {
   motor1.init();
   motor2.init();
+  stop();
 }
 
 void Motors::deploy() {
+  stop();
   motor1.deploy(speed);
   motor2.deploy(speed);
 }
 
 void Motors::retract() {
+  stop();
   motor1.retract(speed);
   motor2.retract(speed);
 }

@@ -3,7 +3,10 @@
 
 // Public
 Motors::Motors(Motor m1, Motor m2, uint8_t speed, unsigned long timeout)
-  : motor1(m1), motor2(m2), speed(speed), _timeout(timeout) {}
+  : motor1(m1),
+    motor2(m2),
+    speed(speed),
+    _timeout(timeout) {}
 
 void Motors::init() {
   motor1.init();

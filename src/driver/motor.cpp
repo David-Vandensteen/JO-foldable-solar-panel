@@ -20,19 +20,19 @@ void Motor::init() {
 
 bool Motor::isBusy() { return _isBusy; }
 
-void Motor::deploy(uint8_t speedPercent) {
+void Motor::deploy(uint8_t speed) {
   Log.traceln("Motor::deploy");
   digitalWrite(_in1, HIGH);
   digitalWrite(_in2, LOW);
-  analogWrite(_en, map(speedPercent, 0, 100, 0, _pwmResolution));
+  analogWrite(_en, map(speed, 0, 100, 0, _pwmResolution));
   _isBusy = true;
 }
 
-void Motor::retract(uint8_t speedPercent) {
+void Motor::retract(uint8_t speed) {
   Log.traceln("Motor::retract");
   digitalWrite(_in1, LOW);
   digitalWrite(_in2, HIGH);
-  analogWrite(_en, map(speedPercent, 0, 100, 0, _pwmResolution));
+  analogWrite(_en, map(speed, 0, 100, 0, _pwmResolution));
   _isBusy = true;
 }
 

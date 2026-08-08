@@ -4,24 +4,25 @@
 #include "ldrs.h"
 #include "setting.h"
 
-Ldrs::Ldrs(Ldr up, Ldr down, SettingProgramLDRs *ldrsSetting)
-  : up(up),
-    down(down),
-    _ldrsSetting(ldrsSetting)
+// Public
+Ldrs::Ldrs(Ldr ldrUp, Ldr ldrDown, SettingProgramLDRs *settingProgramLDRs)
+  : ldrUp(ldrUp),
+    ldrDown(ldrDown),
+    _settingProgramLDRs(settingProgramLDRs)
 {}
 
 void Ldrs::init() {
   Log.traceln("Ldrs::init");
-  up.init();
-  down.init();
+  ldrUp.init();
+  ldrDown.init();
 }
 
 LdrsComparison Ldrs::getComparison() {
-  uint8_t upValue = up.getAveragePercentValue();
-  uint8_t downValue = down.getAveragePercentValue();
+  uint8_t upValue = ldrUp.getAveragePercentValue();
+  uint8_t downValue = ldrDown.getAveragePercentValue();
 
   const int16_t delta = (int16_t)upValue - (int16_t)downValue;
-  if (abs(delta) <= _ldrsSetting->threshold) {
+  if (abs(delta) <= _settingProgramLDRs->threshold) {
     return LdrsComparison::DEADBAND;
   }
   if (delta > 0) {
@@ -32,8 +33,8 @@ LdrsComparison Ldrs::getComparison() {
 }
 
 LdrsComparison Ldrs::update() {
-  up.update();
-  down.update();
+  ldrUp.update();
+  ldrDown.update();
 
   return Ldrs::getComparison();
 }

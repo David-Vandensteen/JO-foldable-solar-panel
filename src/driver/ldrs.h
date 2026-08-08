@@ -11,15 +11,15 @@ enum class LdrsComparison {
 
 class Ldrs {
 public:
-  Ldr up;
-  Ldr down;
-  explicit Ldrs(Ldr up, Ldr down, SettingProgramLDRs *ldrsSetting);
+  Ldr ldrUp;
+  Ldr ldrDown;
+  explicit Ldrs(Ldr ldrUp, Ldr ldrDown, SettingProgramLDRs *settingProgramLDRs);
   LdrsComparison getComparison();
   LdrsComparison update();
   void init();
 
 private:
-  SettingProgramLDRs *_ldrsSetting;
+  SettingProgramLDRs *_settingProgramLDRs;
 };
 
 #endif

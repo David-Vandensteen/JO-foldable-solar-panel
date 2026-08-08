@@ -24,6 +24,7 @@ bool Motor::isBusy() { return _isBusy; }
 
 void Motor::deploy(uint8_t speed) {
   Log.traceln("Motor::deploy");
+  stop();
   digitalWrite(_in1, HIGH);
   digitalWrite(_in2, LOW);
   analogWrite(_en, map(speed, 0, 100, 0, _pwmResolution));
@@ -39,6 +40,7 @@ void Motor::deployWithTimeOut(uint8_t speed, unsigned long timeout) {
 
 void Motor::retract(uint8_t speed) {
   Log.traceln("Motor::retract");
+  stop();
   digitalWrite(_in1, LOW);
   digitalWrite(_in2, HIGH);
   analogWrite(_en, map(speed, 0, 100, 0, _pwmResolution));
@@ -57,6 +59,7 @@ void Motor::stop() {
   digitalWrite(_in1, LOW);
   digitalWrite(_in2, LOW);
   analogWrite(_en, 0);
+  _timeout = 0;
   _isBusy = false;
 }
 

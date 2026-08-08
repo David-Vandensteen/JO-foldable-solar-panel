@@ -17,13 +17,13 @@ enum class TrackerState {
 class Tracker {
 public:
   explicit Tracker(
-    SettingBoardPinTracker *trackerPin,
-    SettingBoardPinMode *modePin,
-    SettingProgramTrackers *trackingSetting,
-    SettingProgramLDRs *ldrsSetting,
-    SettingBoardADC *adcSetting,
-    SettingBoardPWM *pwmSetting,
-    SettingProgramMotors *motorSetting
+    SettingBoardPinTracker *settingBoardPinTracker,
+    SettingBoardPinMode *settingBoardPinMode,
+    SettingProgramTrackers *settingProgramTrackers,
+    SettingProgramLDRs *settingProgramLDRs,
+    SettingBoardADC *settingBoardADC,
+    SettingBoardPWM *settingBoardPWM,
+    SettingProgramMotors *settingProgramMotors
   );
   void init();
   TrackerState update();

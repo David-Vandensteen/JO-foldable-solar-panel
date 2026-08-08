@@ -5,8 +5,8 @@
 class Motors {
 public:
 	explicit Motors(
-    Motor m1,
-    Motor m2,
+    Motor motor1,
+    Motor motor2,
     uint8_t speed,
     unsigned long timeout = 0
   );
@@ -14,12 +14,12 @@ public:
 	void deploy();
 	void retract();
   void stop();
-	Motor motor1;
-	Motor motor2;
 
 private:
+	Motor _motor1;
+	Motor _motor2;
   unsigned long _timeout = 0;
-  uint8_t speed;
+  uint8_t _speed;
 };
 
 #endif

@@ -2,41 +2,46 @@
 #include "motors.h"
 
 // Public
-Motors::Motors(Motor m1, Motor m2, uint8_t speed, unsigned long timeout)
-  : motor1(m1),
-    motor2(m2),
-    speed(speed),
+Motors::Motors(
+  Motor motor1,
+  Motor motor2,
+  uint8_t speed,
+  unsigned long timeout
+)
+  : _motor1(motor1),
+    _motor2(motor2),
+    _speed(speed),
     _timeout(timeout) {}
 
 void Motors::init() {
-  motor1.init();
-  motor2.init();
+  _motor1.init();
+  _motor2.init();
   stop();
 }
 
 void Motors::deploy() {
   stop();
   if (_timeout > 0) {
-    motor1.deployWithTimeOut(speed, _timeout);
-    motor2.deployWithTimeOut(speed, _timeout);
+    _motor1.deployWithTimeOut(_speed, _timeout);
+    _motor2.deployWithTimeOut(_speed, _timeout);
   } else {
-    motor1.deploy(speed);
-    motor2.deploy(speed);
+    _motor1.deploy(_speed);
+    _motor2.deploy(_speed);
   }
 }
 
 void Motors::retract() {
   stop();
   if (_timeout > 0) {
-    motor1.retractWithTimeOut(speed, _timeout);
-    motor2.retractWithTimeOut(speed, _timeout);
+    _motor1.retractWithTimeOut(_speed, _timeout);
+    _motor2.retractWithTimeOut(_speed, _timeout);
   } else {
-    motor1.retract(speed);
-    motor2.retract(speed);
+    _motor1.retract(_speed);
+    _motor2.retract(_speed);
   }
 }
 
 void Motors::stop() {
-  motor1.stop();
-  motor2.stop();
+  _motor1.stop();
+  _motor2.stop();
 }

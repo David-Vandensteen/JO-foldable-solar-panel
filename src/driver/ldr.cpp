@@ -6,27 +6,27 @@
 #include "setting.h"
 
 // Public
-Ldr::Ldr(uint8_t pin, uint16_t adcResolution, SettingProgramLDRs *ldrsSetting)
+Ldr::Ldr(uint8_t pin, uint16_t adcResolution, SettingProgramLDRs *settingProgramLDRs)
   : _pin(pin),
     _adcResolution(adcResolution),
-    _ldrsSetting(ldrsSetting) {}
+    _settingProgramLDRs(settingProgramLDRs) {}
 
 void Ldr::init() {
-  Log.traceln("Ldr::init - pin: %d, sampling interval: %lu", _pin, _ldrsSetting->sampling.interval);
+  Log.traceln("Ldr::init - pin: %d, sampling interval: %lu", _pin, _settingProgramLDRs->sampling.interval);
   pinMode(_pin, INPUT);
-  _interval
-    .setInterval(_ldrsSetting->sampling.interval)
+  _everyInterval
+    .setInterval(_settingProgramLDRs->sampling.interval)
     .setCallback(Ldr::onIntervalTick, this);
 }
 
 uint8_t Ldr::getAveragePercentValue() {
-  return _average.getValue();
+  return _averageAccumulator8.getValue();
 }
 
 uint8_t Ldr::update() {
-  _interval.update();
+  _everyInterval.update();
 
-  return _average.getValue();
+  return _averageAccumulator8.getValue();
 }
 
 // Private
@@ -42,9 +42,9 @@ void Ldr::onIntervalTick(void *ctx) {
 uint8_t Ldr::interval() {
   uint16_t rawInput = analogRead(_pin);
   uint8_t inputPercent = (uint8_t)(((uint32_t)rawInput * 100U) / _adcResolution);
-  _average.add(inputPercent);
+  _averageAccumulator8.add(inputPercent);
   #if LOG_LDR_INTERVAL
-  Log.noticeln("ldr-%d:%d, ldr-%d-average:%d", _pin, inputPercent, _pin, _average.getValue());
+  Log.noticeln("ldr-%d:%d, ldr-%d-average:%d", _pin, inputPercent, _pin, _averageAccumulator8.getValue());
   #endif
-  return _average.getValue();
+  return _averageAccumulator8.getValue();
 }

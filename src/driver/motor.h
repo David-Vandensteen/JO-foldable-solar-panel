@@ -11,8 +11,8 @@ public:
     uint8_t pwmResolution
   );
   void init();
-	void deploy(uint8_t speedPercent);
-	void retract(uint8_t speedPercent);
+	void deploy(uint8_t speed);
+	void retract(uint8_t speed);
 	void stop();
 	bool isBusy();
 

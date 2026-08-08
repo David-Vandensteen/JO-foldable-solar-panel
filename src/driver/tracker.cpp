@@ -10,56 +10,56 @@
 
 // Public
 Tracker::Tracker(
-  SettingBoardPinTracker *trackerPin,
-  SettingBoardPinMode *modePin,
-  SettingProgramTrackers *trackersSetting,
-  SettingProgramLDRs *ldrsSetting,
-  SettingBoardADC *adcSetting,
-  SettingBoardPWM *pwmSetting,
-  SettingProgramMotors *motorSetting
+  SettingBoardPinTracker *settingBoardPinTracker,
+  SettingBoardPinMode *settingBoardPinMode,
+  SettingProgramTrackers *settingProgramTrackers,
+  SettingProgramLDRs *settingProgramLDRs,
+  SettingBoardADC *settingBoardADC,
+  SettingBoardPWM *settingBoardPWM,
+  SettingProgramMotors *settingProgramMotors
 )
-  : _motorSetting(motorSetting),
-    _modePin(modePin),
+  : _settingProgramMotors(settingProgramMotors),
+    _settingBoardPinMode(settingBoardPinMode),
     _ldrs(
       Ldr(
-        trackerPin->ldr.up,
-        adcSetting->resolution,
-        ldrsSetting
+        settingBoardPinTracker->ldr.up,
+        settingBoardADC->resolution,
+        settingProgramLDRs
       ),
       Ldr(
-        trackerPin->ldr.down,
-        adcSetting->resolution,
-        ldrsSetting
+        settingBoardPinTracker->ldr.down,
+        settingBoardADC->resolution,
+        settingProgramLDRs
       ),
-      ldrsSetting
+      settingProgramLDRs
     ),
     _motors(
       Motor(
-        trackerPin->motors.in1,
-        trackerPin->motors.in2,
-        trackerPin->motors.ena,
-        pwmSetting->resolution
+        settingBoardPinTracker->motors.in1,
+        settingBoardPinTracker->motors.in2,
+        settingBoardPinTracker->motors.ena,
+        settingBoardPWM->resolution
       ),
       Motor(
-        trackerPin->motors.in3,
-        trackerPin->motors.in4,
-        trackerPin->motors.enb,
-        pwmSetting->resolution
+        settingBoardPinTracker->motors.in3,
+        settingBoardPinTracker->motors.in4,
+        settingBoardPinTracker->motors.enb,
+        settingBoardPWM->resolution
       ),
-      motorSetting->speed
+      settingProgramMotors->speed
     ),
-    _command(&trackerPin->command),
-    _trackersSetting(trackersSetting) {}
+    _command(&settingBoardPinTracker->command),
+    _settingProgramTrackers(settingProgramTrackers) {}
 
 void Tracker::init() {
   Log.traceln("Tracker::init - mode: %s", isManualMode() ? "manual" : "auto");
   _state = TrackerState::IDLE;
-  pinMode(_modePin->manual, INPUT);
+  pinMode(_settingBoardPinMode->manual, INPUT);
   _ldrs.init();
   _motors.init();
   _command.init();
-  _interval
-    .setInterval(_trackersSetting->interval)
+  _everyInterval
+    .setInterval(_settingProgramTrackers->interval)
     .setCallback(Tracker::onIntervalTick, this);
 }
 
@@ -74,7 +74,7 @@ TrackerState Tracker::update() {
     stop();
     // TODO: reset behavior
   }
-  _interval.update();
+  _everyInterval.update();
   _ldrs.update();
 
   return _state;
@@ -100,7 +100,7 @@ void Tracker::stop() {
 }
 
 bool Tracker::isManualMode() {
-  return digitalRead(_modePin->manual) == HIGH;
+  return digitalRead(_settingBoardPinMode->manual) == HIGH;
 }
 
 void Tracker::onIntervalTick(void *ctx) {

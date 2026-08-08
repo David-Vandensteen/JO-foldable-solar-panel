@@ -30,14 +30,14 @@ public:
 
 private:
   static void onIntervalTick(void *ctx);
-  SettingBoardPinMode *_modePin;
+  SettingBoardPinMode *_settingBoardPinMode;
   Ldrs _ldrs;
   Motors _motors;
+  SettingProgramMotors *_settingProgramMotors;
+  SettingProgramTrackers *_settingProgramTrackers;
   TrackerState _state = TrackerState::IDLE;
-  SettingProgramMotors *_motorSetting;
   Command _command;
-  SettingProgramTrackers *_trackersSetting;
-  DV_EveryInterval _interval;
+  DV_EveryInterval _everyInterval;
   bool isManualMode();
   void deploy();
   void retract();

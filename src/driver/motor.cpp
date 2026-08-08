@@ -12,6 +12,9 @@ Motor::Motor(uint8_t in1, uint8_t in2, uint8_t en, uint8_t pwmResolution)
 
 void Motor::init() {
   Log.traceln("Motor::init");
+  _lastActionTime = 0;
+  _timeout = 0;
+  _isBusy = false;
   pinMode(_in1, OUTPUT);
   pinMode(_in2, OUTPUT);
   pinMode(_en, OUTPUT);
@@ -27,6 +30,13 @@ void Motor::deploy(uint8_t speed) {
   _isBusy = true;
 }
 
+void Motor::deployWithTimeOut(uint8_t speed, unsigned long timeout) {
+  Log.traceln("Motor::deployWithTimeOut");
+  deploy(speed);
+  _lastActionTime = millis();
+  _timeout = timeout;
+}
+
 void Motor::retract(uint8_t speed) {
   Log.traceln("Motor::retract");
   digitalWrite(_in1, LOW);
@@ -35,10 +45,24 @@ void Motor::retract(uint8_t speed) {
   _isBusy = true;
 }
 
+void Motor::retractWithTimeOut(uint8_t speed, unsigned long timeout) {
+  Log.traceln("Motor::retractWithTimeOut");
+  retract(speed);
+  _lastActionTime = millis();
+  _timeout = timeout;
+}
+
 void Motor::stop() {
   Log.traceln("Motor::stop");
   digitalWrite(_in1, LOW);
   digitalWrite(_in2, LOW);
   analogWrite(_en, 0);
   _isBusy = false;
+}
+
+void Motor::update() {
+  if (_isBusy && (millis() - _lastActionTime >= _timeout)) {
+    Log.traceln("Motor::update: timeout reached, stopping motor");
+    stop();
+  }
 }

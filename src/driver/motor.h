@@ -12,11 +12,16 @@ public:
   );
   void init();
 	void deploy(uint8_t speed);
+  void deployWithTimeOut(uint8_t speed, unsigned long timeout);
 	void retract(uint8_t speed);
+  void retractWithTimeOut(uint8_t speed, unsigned long timeout);
 	void stop();
 	bool isBusy();
+  void update();
 
 private:
+  unsigned long _lastActionTime = 0;
+  unsigned long _timeout = 0;
 	uint8_t _in1, _in2, _en;
   uint8_t _pwmResolution;
   bool _isBusy = false;

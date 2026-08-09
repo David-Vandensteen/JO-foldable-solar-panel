@@ -1,3 +1,5 @@
+#include <Arduino.h>
+#include "setting.h"
 #include "motor.h"
 #include "motors.h"
 
@@ -5,13 +7,12 @@
 Motors::Motors(
   Motor motor1,
   Motor motor2,
-  uint8_t speed,
-  unsigned long timeout
+  SettingProgramMotors *settingProgramMotors
 )
   : _motor1(motor1),
     _motor2(motor2),
-    _speed(speed),
-    _timeout(timeout) {}
+    _speed(settingProgramMotors->speed),
+    _timeout(settingProgramMotors->timeout) {}
 
 void Motors::init() {
   _motor1.init();

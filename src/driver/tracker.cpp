@@ -47,8 +47,7 @@ Tracker::Tracker(
         settingBoardPinTracker->motors.enb,
         settingBoardPWM->resolution
       ),
-      settingProgramMotors->speed,
-      settingProgramMotors->timeout
+      settingProgramMotors
     ),
     _command(&settingBoardPinTracker->command),
     _settingProgramTrackers(settingProgramTrackers) {}

@@ -1,5 +1,7 @@
 #ifndef MOTORS_H
 #define MOTORS_H
+#include <Arduino.h>
+#include "setting.h"
 #include "motor.h"
 
 class Motors {
@@ -7,8 +9,7 @@ public:
 	explicit Motors(
     Motor motor1,
     Motor motor2,
-    uint8_t speed,
-    unsigned long timeout = 0
+    SettingProgramMotors *settingProgramMotors
   );
   void init();
 	void deploy();

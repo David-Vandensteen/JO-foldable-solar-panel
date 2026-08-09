@@ -19,6 +19,10 @@ void Ldr::init() {
     .setCallback(Ldr::onIntervalTick, this);
 }
 
+uint8_t Ldr::getPin() {
+  return _pin;
+}
+
 uint8_t Ldr::getAveragePercentValue() {
   return _averageAccumulator8.getValue();
 }

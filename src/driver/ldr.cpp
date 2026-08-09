@@ -13,6 +13,9 @@ Ldr::Ldr(uint8_t pin, uint16_t adcResolution, SettingProgramLDR *settingProgramL
 
 void Ldr::init() {
   Log.traceln("Ldr::init - pin: %d, sampling interval: %lu", _pin, _settingProgramLDR->sampling.interval);
+  #if LDR_MOCK
+  Log.traceln("Ldr::init - MOCK enabled");
+  #endif
   pinMode(_pin, INPUT);
   _everyInterval
     .setInterval(_settingProgramLDR->sampling.interval)
@@ -24,6 +27,17 @@ uint8_t Ldr::getPin() {
 }
 
 uint8_t Ldr::getAveragePercentValue() {
+  // mock
+  #if LDR_MOCK
+  if (getPin() == 32) {
+    return uint8_t(50);
+  }
+  if (getPin() == 33) {
+    return uint8_t(45);
+  }
+  #endif
+  //
+
   return _averageAccumulator8.getValue();
 }
 
@@ -48,7 +62,7 @@ uint8_t Ldr::interval() {
   uint8_t inputPercent = (uint8_t)(((uint32_t)rawInput * 100U) / _adcResolution);
   _averageAccumulator8.add(inputPercent);
   #if LOG_LDR_INTERVAL
-  Log.noticeln("ldr-%d:%d, ldr-%d-average:%d", _pin, inputPercent, _pin, _averageAccumulator8.getValue());
+  Log.noticeln("ldr-%d:%d, ldr-%d-average:%d", _pin, inputPercent, _pin, getAveragePercentValue());
   #endif
   return _averageAccumulator8.getValue();
 }

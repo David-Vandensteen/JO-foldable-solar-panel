@@ -51,6 +51,12 @@
 #define WATCHDOG true
 #define WATCHDOG_INTERVAL 30000
 
+// ------------------
+//  MOCK
+// ------------------
+#define LDR_MOCK true
+
+
 typedef struct SettingBoardPinTrackerLDR {
   uint8_t up;
   uint8_t down;

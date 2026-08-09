@@ -54,8 +54,7 @@
 // ------------------
 //  MOCK
 // ------------------
-#define LDR_MOCK true
-
+#define MOCK_LDR_AVERAGE_PERCENT_VALUE true
 
 typedef struct SettingBoardPinTrackerLDR {
   uint8_t up;

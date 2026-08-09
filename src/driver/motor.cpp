@@ -63,12 +63,6 @@ void Motor::stop() {
   _isBusy = false;
 }
 
-void Motor::setPositionZero() {
-  Log.traceln("Motor::setPositionZero");
-  stop();
-  // TODO: Implement the logic to set the motor's position to zero if applicable.
-}
-
 void Motor::update() {
   if (_isBusy && (millis() - _lastActionTime >= _timeout)) {
     Log.traceln("Motor::update: timeout reached, stopping motor");

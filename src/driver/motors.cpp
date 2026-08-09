@@ -41,6 +41,11 @@ void Motors::retract() {
   }
 }
 
+void Motors::setPositionZero() {
+  stop();
+  // TODO: Implement the logic to set the motors' position to zero if applicable.
+}
+
 void Motors::stop() {
   _motor1.stop();
   _motor2.stop();

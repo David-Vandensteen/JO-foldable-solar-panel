@@ -13,6 +13,7 @@ public:
   void init();
 	void deploy();
 	void retract();
+  void setPositionZero();
   void stop();
 
 private:

@@ -146,6 +146,13 @@ void Tracker::interval() {
       stop();
     }
     break;
+  case LdrsComparison::NIGHT:
+    #if LOG_TRACKER_INTERVAL
+    Log.traceln("Tracker::update - LDR NIGHT");
+    #endif
+    stop();
+    // TODO: night behavior
+    break;
   default:
     break;
   }

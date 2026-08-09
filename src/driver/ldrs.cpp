@@ -21,6 +21,10 @@ LdrsComparison Ldrs::getComparison() {
   uint8_t upValue = ldrUp.getAveragePercentValue();
   uint8_t downValue = ldrDown.getAveragePercentValue();
 
+  if (upValue <= _settingProgramLDRs->night.cutoff && downValue <= _settingProgramLDRs->night.cutoff) {
+    return LdrsComparison::NIGHT;
+  }
+
   const int16_t delta = (int16_t)upValue - (int16_t)downValue;
   if (abs(delta) <= _settingProgramLDRs->threshold) {
     return LdrsComparison::DEADBAND;

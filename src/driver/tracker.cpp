@@ -13,6 +13,7 @@ Tracker::Tracker(
   SettingBoardPinTracker *settingBoardPinTracker,
   SettingBoardPinMode *settingBoardPinMode,
   SettingProgramTrackers *settingProgramTrackers,
+  SettingProgramLDR *settingProgramLDR,
   SettingProgramLDRs *settingProgramLDRs,
   SettingBoardADC *settingBoardADC,
   SettingBoardPWM *settingBoardPWM,
@@ -24,12 +25,12 @@ Tracker::Tracker(
       Ldr(
         settingBoardPinTracker->ldr.up,
         settingBoardADC->resolution,
-        settingProgramLDRs
+        settingProgramLDR
       ),
       Ldr(
         settingBoardPinTracker->ldr.down,
         settingBoardADC->resolution,
-        settingProgramLDRs
+        settingProgramLDR
       ),
       settingProgramLDRs
     ),

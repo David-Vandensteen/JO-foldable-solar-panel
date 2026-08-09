@@ -109,9 +109,9 @@ typedef struct SettingProgramTrackers {
   unsigned long interval;
 } SettingProgramTrackers;
 
-typedef struct SettingProgramLDRsSampling {
+typedef struct SettingProgramLDRSampling {
   unsigned long interval;
-} SettingProgramLDRsSampling;
+} SettingProgramLDRSampling;
 
 typedef struct SettingProgramLDRsNight {
   uint8_t cutoff;
@@ -119,9 +119,12 @@ typedef struct SettingProgramLDRsNight {
 
 typedef struct SettingProgramLDRs {
   uint8_t threshold;
-  SettingProgramLDRsSampling sampling;
   SettingProgramLDRsNight night;
 } SettingProgramLDRs;
+
+typedef struct SettingProgramLDR {
+  SettingProgramLDRSampling sampling;
+} SettingProgramLDR;
 
 typedef struct SettingProgramMotors {
   unsigned long timeout;
@@ -131,6 +134,7 @@ typedef struct SettingProgramMotors {
 typedef struct SettingProgram {
   char *version;
   SettingProgramTrackers trackers;
+  SettingProgramLDR ldr;
   SettingProgramLDRs ldrs;
   SettingProgramMotors motors;
 } SettingProgram;

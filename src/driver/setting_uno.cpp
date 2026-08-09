@@ -45,6 +45,7 @@ LDR 3 - night sensor:
 #define SETTING_PROGRAM_TRACKERS_INTERVAL 3 * (60 * 1000)
 #define SETTING_PROGRAM_LDRS_THRESHOLD 10
 #define SETTING_PROGRAM_LDRS_SAMPLING_INTERVAL 1000
+#define SETTING_PROGRAM_LDRS_NIGHT_CUTOFF 10
 #define SETTING_PROGRAM_MOTORS_SPEED 30
 #define SETTING_PROGRAM_MOTORS_TIMEOUT 1000
 
@@ -68,6 +69,7 @@ void settingInit(Setting *setting) {
 	setting->program.trackers.interval = SETTING_PROGRAM_TRACKERS_INTERVAL;
 	setting->program.ldrs.threshold = SETTING_PROGRAM_LDRS_THRESHOLD;
   setting->program.ldrs.sampling.interval = SETTING_PROGRAM_LDRS_SAMPLING_INTERVAL;
+  setting->program.ldrs.night.cutoff = SETTING_PROGRAM_LDRS_NIGHT_CUTOFF;
   setting->program.motors.speed = SETTING_PROGRAM_MOTORS_SPEED;
   setting->program.motors.timeout = SETTING_PROGRAM_MOTORS_TIMEOUT;
 }

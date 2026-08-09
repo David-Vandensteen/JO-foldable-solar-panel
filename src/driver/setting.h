@@ -113,9 +113,14 @@ typedef struct SettingProgramLDRsSampling {
   unsigned long interval;
 } SettingProgramLDRsSampling;
 
+typedef struct SettingProgramLDRsNight {
+  uint8_t cutoff;
+} SettingProgramLDRsNight;
+
 typedef struct SettingProgramLDRs {
-  uint16_t threshold;
+  uint8_t threshold;
   SettingProgramLDRsSampling sampling;
+  SettingProgramLDRsNight night;
 } SettingProgramLDRs;
 
 typedef struct SettingProgramMotors {

@@ -17,7 +17,6 @@ public:
 	void retract(uint8_t speed);
   void retractWithTimeOut(uint8_t speed, unsigned long timeout);
 	void stop();
-	bool isBusy();
   void update();
 
 private:
@@ -26,8 +25,6 @@ private:
   State _state;
 	uint8_t _in1, _in2, _en;
   uint8_t _pwmResolution;
-  bool _isBusy = false;
 };
-
 
 #endif

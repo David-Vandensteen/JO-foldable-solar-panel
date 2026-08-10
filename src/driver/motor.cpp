@@ -16,13 +16,10 @@ void Motor::init() {
   _state.setStateInitializing();
   _lastActionTime = 0;
   _timeout = 0;
-  _isBusy = false;
   pinMode(_in1, OUTPUT);
   pinMode(_in2, OUTPUT);
   pinMode(_en, OUTPUT);
 }
-
-bool Motor::isBusy() { return _isBusy; }
 
 void Motor::deploy(uint8_t speed) {
   Log.traceln("Motor::deploy");
@@ -33,7 +30,6 @@ void Motor::deploy(uint8_t speed) {
   digitalWrite(_in1, HIGH);
   digitalWrite(_in2, LOW);
   analogWrite(_en, map(speed, 0, 100, 0, _pwmResolution));
-  _isBusy = true;
   _state.setStateRunning();
 }
 
@@ -53,7 +49,7 @@ void Motor::retract(uint8_t speed) {
   digitalWrite(_in1, LOW);
   digitalWrite(_in2, HIGH);
   analogWrite(_en, map(speed, 0, 100, 0, _pwmResolution));
-  _isBusy = true;
+  _state.setStateRunning();
 }
 
 void Motor::retractWithTimeOut(uint8_t speed, unsigned long timeout) {
@@ -69,7 +65,6 @@ void Motor::stop() {
   digitalWrite(_in2, LOW);
   analogWrite(_en, 0);
   _timeout = 0;
-  _isBusy = false;
   _state.setStateStopped();
 }
 

@@ -5,6 +5,7 @@
 #include "led_protocol.h"
 #include "command.h"
 #include "trackers.h"
+#include "state.h"
 
 class Driver {
 public:
@@ -15,6 +16,7 @@ private:
   static Setting *_setting;
   static LedProtocol *_ledProtocol;
   static Trackers *_trackers;
+  static State _state;
   static void watchDog();
 };
 

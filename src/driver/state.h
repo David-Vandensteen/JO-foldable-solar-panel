@@ -14,6 +14,10 @@ public:
   explicit State();
   explicit State(StateType stateType);
   StateType getState();
+  bool isStateInitializing();
+  bool isStateRunning();
+  bool isStateStopped();
+  bool isStateError();
   void setState(StateType stateType);
   void setStateInitializing();
   void setStateRunning();

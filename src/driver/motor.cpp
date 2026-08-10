@@ -2,6 +2,7 @@
 #include <ArduinoLog.h>
 #include "motor.h"
 #include "setting.h"
+#include "state.h"
 
 // Public
 Motor::Motor(uint8_t in1, uint8_t in2, uint8_t en, uint8_t pwmResolution)
@@ -12,6 +13,7 @@ Motor::Motor(uint8_t in1, uint8_t in2, uint8_t en, uint8_t pwmResolution)
 
 void Motor::init() {
   Log.traceln("Motor::init");
+  _state.setStateInitializing();
   _lastActionTime = 0;
   _timeout = 0;
   _isBusy = false;
@@ -24,11 +26,15 @@ bool Motor::isBusy() { return _isBusy; }
 
 void Motor::deploy(uint8_t speed) {
   Log.traceln("Motor::deploy");
-  stop();
+  if (_state.isStateRunning()) {
+    Log.traceln("Motor::deploy: already running, stopping first");
+    stop();
+  }
   digitalWrite(_in1, HIGH);
   digitalWrite(_in2, LOW);
   analogWrite(_en, map(speed, 0, 100, 0, _pwmResolution));
   _isBusy = true;
+  _state.setStateRunning();
 }
 
 void Motor::deployWithTimeOut(uint8_t speed, unsigned long timeout) {
@@ -40,7 +46,10 @@ void Motor::deployWithTimeOut(uint8_t speed, unsigned long timeout) {
 
 void Motor::retract(uint8_t speed) {
   Log.traceln("Motor::retract");
-  stop();
+  if (_state.isStateRunning()) {
+    Log.traceln("Motor::retract: already running, stopping first");
+    stop();
+  }
   digitalWrite(_in1, LOW);
   digitalWrite(_in2, HIGH);
   analogWrite(_en, map(speed, 0, 100, 0, _pwmResolution));
@@ -61,10 +70,11 @@ void Motor::stop() {
   analogWrite(_en, 0);
   _timeout = 0;
   _isBusy = false;
+  _state.setStateStopped();
 }
 
 void Motor::update() {
-  if (_isBusy && (millis() - _lastActionTime >= _timeout)) {
+  if (_state.isStateRunning() && (millis() - _lastActionTime >= _timeout)) {
     Log.traceln("Motor::update: timeout reached, stopping motor");
     stop();
   }

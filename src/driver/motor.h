@@ -1,6 +1,7 @@
 #ifndef MOTOR_H
 #define MOTOR_H
 #include <Arduino.h>
+#include "state.h"
 
 class Motor {
 public:
@@ -22,6 +23,7 @@ public:
 private:
   unsigned long _lastActionTime = 0;
   unsigned long _timeout = 0;
+  State _state;
 	uint8_t _in1, _in2, _en;
   uint8_t _pwmResolution;
   bool _isBusy = false;

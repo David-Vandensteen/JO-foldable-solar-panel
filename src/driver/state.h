@@ -13,16 +13,16 @@ class State {
 public:
   explicit State();
   explicit State(StateType stateType);
-  StateType getState();
+  StateType getStateType();
   bool isStateInitializing();
   bool isStateRunning();
   bool isStateStopped();
   bool isStateError();
-  void setState(StateType stateType);
-  void setStateInitializing();
-  void setStateRunning();
-  void setStateStopped();
-  void setStateError();
+  State setState(StateType stateType);
+  State setStateInitializing();
+  State setStateRunning();
+  State setStateStopped();
+  State setStateError();
 
 private:
   StateType _stateType = StateType::INITIALIZING;

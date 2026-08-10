@@ -4,7 +4,7 @@
 State::State() : _stateType(StateType::INITIALIZING) {}
 State::State(StateType stateType) : _stateType(stateType) {}
 
-StateType State::getState() {
+StateType State::getStateType() {
   return _stateType;
 }
 
@@ -24,22 +24,23 @@ bool State::isStateError() {
   return _stateType == StateType::ERROR;
 }
 
-void State::setState(StateType stateType) {
+State State::setState(StateType stateType) {
   _stateType = stateType;
+  return *this;
 }
 
-void State::setStateInitializing() {
-  setState(StateType::INITIALIZING);
+State State::setStateInitializing() {
+  return setState(StateType::INITIALIZING);
 }
 
-void State::setStateRunning() {
-  setState(StateType::RUNNING);
+State State::setStateRunning() {
+  return setState(StateType::RUNNING);
 }
 
-void State::setStateStopped() {
-  setState(StateType::STOPPED);
+State State::setStateStopped() {
+  return setState(StateType::STOPPED);
 }
 
-void State::setStateError() {
-  setState(StateType::ERROR);
+State State::setStateError() {
+  return setState(StateType::ERROR);
 }

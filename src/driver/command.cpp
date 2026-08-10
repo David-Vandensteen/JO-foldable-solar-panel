@@ -3,6 +3,7 @@
 #include <dv_dual_hold_state.h>
 #include "command.h"
 #include "setting.h"
+#include "command_state.h"
 
 void Command::onStopHold(void *ctx) {
   if (ctx == nullptr) {
@@ -10,7 +11,7 @@ void Command::onStopHold(void *ctx) {
   }
   Command *self = static_cast<Command *>(ctx);
   Log.noticeln("Command::stop pressed");
-  self->_state = CommandState::STOP;
+  self->_state = self->_state.setCommandStateStop();
 }
 
 void Command::onResetHold(void *ctx) {
@@ -19,7 +20,7 @@ void Command::onResetHold(void *ctx) {
   }
   Command *self = static_cast<Command *>(ctx);
   Log.noticeln("Command::stop reset");
-  self->_state = CommandState::RESET;
+  self->_state = self->_state.setCommandStateReset();
 }
 
 Command::Command(SettingBoardPinTrackerCommand *command)
@@ -28,6 +29,7 @@ Command::Command(SettingBoardPinTrackerCommand *command)
 void Command::init() {
   Log.traceln("Command::init");
   Log.noticeln("Initializing command");
+  _state = _state.setCommandStateIdle();
   pinMode(_command->stop, INPUT_PULLUP);
   _hold.init(
     500,

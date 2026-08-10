@@ -3,12 +3,7 @@
 #include <Arduino.h>
 #include <dv_dual_hold_state.h>
 #include "setting.h"
-
-enum class CommandState {
-  RUNNING,
-  STOP,
-  RESET
-};
+#include "command_state.h"
 
 class Command {
 public:
@@ -22,7 +17,7 @@ private:
   static void onResetHold(void *ctx);
 
   DV_DualHoldState _hold;
-  CommandState _state = CommandState::RUNNING;
+  CommandState _state;
   SettingBoardPinTrackerCommand *_command;
 };
 

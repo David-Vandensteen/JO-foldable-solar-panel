@@ -7,6 +7,7 @@
 #include "motors.h"
 #include "setting.h"
 #include "state.h"
+#include "command_state.h"
 
 class Tracker {
 public:

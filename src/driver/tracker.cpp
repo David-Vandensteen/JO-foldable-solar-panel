@@ -8,6 +8,7 @@
 #include "ldrs.h"
 #include "motor.h"
 #include "state.h"
+#include "command_state.h"
 
 // Public
 Tracker::Tracker(
@@ -62,16 +63,16 @@ void Tracker::init() {
   _everyInterval
     .setInterval(_settingProgramTrackers->interval)
     .setCallback(Tracker::onIntervalTick, this);
-  _state.setStateInitializing();
+  _state = _state.setStateInitializing();
 }
 
 State Tracker::update() {
   CommandState commandState = _command.update();
-  if (commandState == CommandState::STOP) {
+  if (commandState.isCommandStateStop()) {
     Log.traceln("Tracker::update - Command STOP");
     stop();
     return _state.setStateStopped();
-  } else if (commandState == CommandState::RESET) {
+  } else if (commandState.isCommandStateReset()) {
     Log.traceln("Tracker::update - Command RESET");
     stop();
     // TODO: reset behavior

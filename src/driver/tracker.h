@@ -6,13 +6,7 @@
 #include "ldrs.h"
 #include "motors.h"
 #include "setting.h"
-
-enum class TrackerState {
-  IDLE,
-  DEPLOY,
-  RETRACT,
-  STOP
-};
+#include "state.h"
 
 class Tracker {
 public:
@@ -27,7 +21,7 @@ public:
     SettingProgramMotors *settingProgramMotors
   );
   void init();
-  TrackerState update();
+  State update();
 
 private:
   static void onIntervalTick(void *ctx);
@@ -36,9 +30,9 @@ private:
   Motors _motors;
   SettingProgramMotors *_settingProgramMotors;
   SettingProgramTrackers *_settingProgramTrackers;
-  TrackerState _state = TrackerState::IDLE;
   Command _command;
   DV_EveryInterval _everyInterval;
+  State _state;
   bool isManualMode();
   void deploy();
   void retract();

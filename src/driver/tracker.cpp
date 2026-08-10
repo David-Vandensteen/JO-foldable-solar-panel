@@ -7,6 +7,7 @@
 #include "ldr.h"
 #include "ldrs.h"
 #include "motor.h"
+#include "state.h"
 
 // Public
 Tracker::Tracker(
@@ -54,7 +55,6 @@ Tracker::Tracker(
 
 void Tracker::init() {
   Log.traceln("Tracker::init - mode: %s", isManualMode() ? "manual" : "auto");
-  _state = TrackerState::IDLE;
   pinMode(_settingBoardPinMode->manual, INPUT);
   _ldrs.init();
   _motors.init();
@@ -62,14 +62,15 @@ void Tracker::init() {
   _everyInterval
     .setInterval(_settingProgramTrackers->interval)
     .setCallback(Tracker::onIntervalTick, this);
+  _state.setStateInitializing();
 }
 
-TrackerState Tracker::update() {
+State Tracker::update() {
   CommandState commandState = _command.update();
   if (commandState == CommandState::STOP) {
     Log.traceln("Tracker::update - Command STOP");
     stop();
-    return TrackerState::STOP;
+    return _state.setStateStopped();
   } else if (commandState == CommandState::RESET) {
     Log.traceln("Tracker::update - Command RESET");
     stop();
@@ -84,19 +85,19 @@ TrackerState Tracker::update() {
 // Private
 void Tracker::deploy() {
   Log.traceln("Tracker::deploy");
-  _state = TrackerState::DEPLOY;
+  _state.setStateRunning();
   _motors.deploy();
 }
 
 void Tracker::retract() {
   Log.traceln("Tracker::retract");
-  _state = TrackerState::RETRACT;
+  _state.setStateRunning();
   _motors.retract();
 }
 
 void Tracker::stop() {
   Log.traceln("Tracker::stop");
-  _state = TrackerState::IDLE;
+  _state.setStateStopped();
   _motors.stop();
 }
 
@@ -118,7 +119,7 @@ void Tracker::interval() {
   Log.traceln("Tracker::interval - mode: %s", isManualMode() ? "manual" : "automa");
   #endif
   if (isManualMode()) {
-    if (_state != TrackerState::IDLE) {
+    if (_state.isStateRunning()) {
       stop();
     }
     return;
@@ -128,27 +129,27 @@ void Tracker::interval() {
   switch (comparison) {
   case LdrsComparison::UP_GREATER_THAN_DOWN:
     #if LOG_TRACKER_INTERVAL
-    Log.traceln("Tracker::update - LDR UP_GREATER_THAN_DOWN");
+    Log.traceln("Tracker::interval - LDR UP_GREATER_THAN_DOWN");
     #endif
     deploy();
     break;
   case LdrsComparison::DOWN_GREATER_THAN_UP:
     #if LOG_TRACKER_INTERVAL
-    Log.traceln("Tracker::update - LDR DOWN_GREATER_THAN_UP");
+    Log.traceln("Tracker::interval - LDR DOWN_GREATER_THAN_UP");
     #endif
     retract();
     break;
   case LdrsComparison::DEADBAND:
     #if LOG_TRACKER_INTERVAL
-    Log.traceln("Tracker::update - LDR DEADBAND");
+    Log.traceln("Tracker::interval - LDR DEADBAND");
     #endif
-    if (_state != TrackerState::IDLE) {
+    if (_state.isStateRunning()) {
       stop();
     }
     break;
   case LdrsComparison::NIGHT:
     #if LOG_TRACKER_INTERVAL
-    Log.traceln("Tracker::update - LDR NIGHT");
+    Log.traceln("Tracker::interval - LDR NIGHT");
     #endif
     stop();
     // TODO: night behavior

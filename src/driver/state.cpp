@@ -11,6 +11,10 @@ void State::setState(StateType stateType) {
   _stateType = stateType;
 }
 
+void State::setStateInitializing() {
+  setState(StateType::INITIALIZING);
+}
+
 void State::setStateRunning() {
   setState(StateType::RUNNING);
 }

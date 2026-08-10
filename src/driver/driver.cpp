@@ -10,10 +10,8 @@
 Setting *Driver::_setting;
 LedProtocol *Driver::_ledProtocol;
 Trackers *Driver::_trackers;
-State Driver::_state;
 
 void Driver::init(Setting *setting) {
-  _state.setStateInitializing();
   _setting = setting;
   _ledProtocol = new LedProtocol(_setting->board.pin.led);
   if (LOG) {
@@ -47,7 +45,6 @@ void Driver::watchDog() {
 }
 
 void Driver::update() {
-  _state.setStateRunning();
   _trackers->update();
   #if defined(WATCHDOG_INTERVAL)
     if (LOG && WATCHDOG) { watchDog(); }

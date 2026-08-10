@@ -11,6 +11,7 @@ enum class StateType {
 
 class State {
 public:
+  explicit State();
   explicit State(StateType stateType);
   StateType getState();
   void setState(StateType stateType);

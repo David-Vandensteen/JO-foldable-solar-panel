@@ -2,6 +2,7 @@
 #include "state.h"
 
 State::State() : _stateType(StateType::INITIALIZING) {}
+
 State::State(StateType stateType) : _stateType(stateType) {}
 
 StateType State::getStateType() {

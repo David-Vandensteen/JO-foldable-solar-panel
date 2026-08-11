@@ -29,11 +29,11 @@ uint8_t Ldr::getPin() {
 uint8_t Ldr::getAveragePercentValue() {
   // mock
   #if MOCK_LDR_AVERAGE_PERCENT_VALUE
-  if (getPin() == 32) {
-    return uint8_t(50);
+  if (getPin() == getSetting()->board.pin.tracker[TRACKER_1].ldr.up) {
+    return uint8_t(30);
   }
-  if (getPin() == 33) {
-    return uint8_t(45);
+  if (getPin() == getSetting()->board.pin.tracker[TRACKER_1].ldr.down) {
+    return uint8_t(10);
   }
   #endif
   //

@@ -21,7 +21,6 @@ void Motors::init() {
 }
 
 void Motors::deploy() {
-  stop();
   if (_timeout > 0) {
     _motor1.deployWithTimeOut(_speed, _timeout);
     _motor2.deployWithTimeOut(_speed, _timeout);
@@ -50,4 +49,9 @@ void Motors::setPositionZero() {
 void Motors::stop() {
   _motor1.stop();
   _motor2.stop();
+}
+
+void Motors::update() {
+  _motor1.update();
+  _motor2.update();
 }

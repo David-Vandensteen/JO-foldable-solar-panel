@@ -16,6 +16,7 @@ public:
 	void retract();
   void setPositionZero();
   void stop();
+  void update();
 
 private:
 	Motor _motor1;

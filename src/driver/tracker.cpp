@@ -79,6 +79,7 @@ State Tracker::update() {
   }
   _everyInterval.update();
   _ldrs.update();
+  _motors.update();
 
   return _state;
 }

@@ -5,10 +5,6 @@ State::State() : _stateType(StateType::INITIALIZING) {}
 
 State::State(StateType stateType) : _stateType(stateType) {}
 
-StateType State::getStateType() {
-  return _stateType;
-}
-
 bool State::isStateInitializing() {
   return _stateType == StateType::INITIALIZING;
 }

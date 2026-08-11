@@ -12,7 +12,6 @@ class CommandState {
 public:
   explicit CommandState();
   explicit CommandState(CommandStateType commandStateType);
-  CommandStateType getCommandStateType();
   bool isCommandStateStop();
   bool isCommandStateReset();
   bool isCommandStateIdle();

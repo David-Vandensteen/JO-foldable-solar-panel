@@ -13,7 +13,6 @@ class State {
 public:
   explicit State();
   explicit State(StateType stateType);
-  StateType getStateType();
   bool isStateInitializing();
   bool isStateRunning();
   bool isStateStopped();

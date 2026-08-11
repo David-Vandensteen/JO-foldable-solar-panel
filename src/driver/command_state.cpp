@@ -6,10 +6,6 @@ CommandState::CommandState() : _commandStateType(CommandStateType::IDLE) {}
 CommandState::CommandState(CommandStateType commandStateType)
   : _commandStateType(commandStateType) {}
 
-CommandStateType CommandState::getCommandStateType() {
-  return _commandStateType;
-}
-
 bool CommandState::isCommandStateStop() {
   return _commandStateType == CommandStateType::STOP;
 }

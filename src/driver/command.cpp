@@ -11,7 +11,7 @@ void Command::onStopHold(void *ctx) {
   }
   Command *self = static_cast<Command *>(ctx);
   Log.noticeln("Command::stop pressed");
-  self->_state = self->_state.setCommandStateStop();
+  self->_state = self->_state.setStateStop();
 }
 
 void Command::onResetHold(void *ctx) {
@@ -20,7 +20,7 @@ void Command::onResetHold(void *ctx) {
   }
   Command *self = static_cast<Command *>(ctx);
   Log.noticeln("Command::stop reset");
-  self->_state = self->_state.setCommandStateReset();
+  self->_state = self->_state.setStateReset();
 }
 
 Command::Command(SettingBoardPinTrackerCommand *command)
@@ -29,7 +29,7 @@ Command::Command(SettingBoardPinTrackerCommand *command)
 void Command::init() {
   Log.traceln("Command::init");
   Log.noticeln("Initializing command");
-  _state = _state.setCommandStateIdle();
+  _state = _state.setStateIdle();
   pinMode(_command->stop, INPUT_PULLUP);
   _hold.init(
     500,

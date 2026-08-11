@@ -12,16 +12,15 @@ class CommandState {
 public:
   explicit CommandState();
   explicit CommandState(CommandStateType commandStateType);
-  bool isCommandStateStop();
-  bool isCommandStateReset();
-  bool isCommandStateIdle();
-  CommandState setCommandState(CommandStateType commandStateType);
-  CommandState setCommandStateStop();
-  CommandState setCommandStateReset();
-  CommandState setCommandStateIdle();
+  bool isStateStop();
+  bool isStateReset();
+  bool isStateIdle();
+  CommandState setState(CommandStateType commandStateType);
+  CommandState setStateStop();
+  CommandState setStateReset();
+  CommandState setStateIdle();
 private:
   CommandStateType _commandStateType = CommandStateType::IDLE;
 };
-
 
 #endif

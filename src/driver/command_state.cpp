@@ -1,36 +1,37 @@
 #include <Arduino.h>
 #include "command_state.h"
 
+// Public
 CommandState::CommandState() : _commandStateType(CommandStateType::IDLE) {}
 
 CommandState::CommandState(CommandStateType commandStateType)
   : _commandStateType(commandStateType) {}
 
-bool CommandState::isCommandStateStop() {
+bool CommandState::isStateStop() {
   return _commandStateType == CommandStateType::STOP;
 }
 
-bool CommandState::isCommandStateReset() {
+bool CommandState::isStateReset() {
   return _commandStateType == CommandStateType::RESET;
 }
 
-bool CommandState::isCommandStateIdle() {
+bool CommandState::isStateIdle() {
   return _commandStateType == CommandStateType::IDLE;
 }
 
-CommandState CommandState::setCommandState(CommandStateType commandStateType) {
+CommandState CommandState::setState(CommandStateType commandStateType) {
   _commandStateType = commandStateType;
   return *this;
 }
 
-CommandState CommandState::setCommandStateStop() {
-  return setCommandState(CommandStateType::STOP);
+CommandState CommandState::setStateStop() {
+  return setState(CommandStateType::STOP);
 }
 
-CommandState CommandState::setCommandStateReset() {
-  return setCommandState(CommandStateType::RESET);
+CommandState CommandState::setStateReset() {
+  return setState(CommandStateType::RESET);
 }
 
-CommandState CommandState::setCommandStateIdle() {
-  return setCommandState(CommandStateType::IDLE);
+CommandState CommandState::setStateIdle() {
+  return setState(CommandStateType::IDLE);
 }

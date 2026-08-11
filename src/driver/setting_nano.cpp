@@ -46,7 +46,8 @@ LDR 2 - sun sensor 2:
 #define SETTING_PROGRAM_MOTORS_SPEED 30
 #define SETTING_PROGRAM_MOTORS_TIMEOUT 1000
 
-void settingInit(Setting *setting) {
+void settingInit() {
+  setting = getSetting();
 	setting->board.adc.resolution = SETTING_BOARD_ADC_RESOLUTION;
 	setting->board.pwm.resolution = SETTING_BOARD_PWM_RESOLUTION;
   setting->board.serial.baudRate = SETTING_BOARD_SERIAL_BAUD_RATE;

@@ -8,11 +8,11 @@
 #include "driver.h"
 #include "setting.h"
 
-static Setting setting;
+static Setting *setting;
 
 void setup() {
-  settingInit(&setting);
-  Driver::init(&setting);
+  setting = settingInit();
+  Driver::init(setting);
 }
 
 void loop() {

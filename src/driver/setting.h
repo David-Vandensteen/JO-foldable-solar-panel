@@ -150,11 +150,11 @@ typedef struct Setting {
 } Setting;
 
 void logFatal(const char *message);
-void settingInit(Setting *setting);
-bool assertSetting(Setting *setting);
-
+Setting* settingInit();
+bool assertSetting();
+Setting* getSetting();
 #ifdef BOARD_ESP32
-void logSetting(Setting *setting);
+void logSetting();
 #endif
 
 #endif

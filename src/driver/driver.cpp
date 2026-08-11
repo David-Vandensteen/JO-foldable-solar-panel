@@ -17,15 +17,15 @@ void Driver::init(Setting *setting) {
   if (LOG) {
     Serial.begin(_setting->board.serial.baudRate);
     Log.begin(LOG_LEVEL, &Serial);
-    delay(2000);
+    delay(10000);
   }
-  if (!assertSetting(_setting)) {
+  if (!assertSetting()) {
     Log.fatal("Invalid setting");
     _ledProtocol->fatalError();
   }
   Log.noticeln("Setting is valid");
   #ifdef BOARD_ESP32
-  logSetting(_setting);
+  logSetting();
   #endif
    Log.noticeln("Waiting before starting...");
   _ledProtocol->waiting();

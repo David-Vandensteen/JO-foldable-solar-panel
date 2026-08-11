@@ -1,13 +1,16 @@
 #include <ArduinoLog.h>
 #include "setting.h"
 
+static Setting setting;
+
 void logFatal(const char* message) {
   #if LOG_FATAL_SETTING
   Log.fatal(message);
   #endif
 }
 
-bool assertSetting(Setting *setting) {
+bool assertSetting() {
+  Setting *setting = getSetting();
   if (setting == nullptr) {
     logFatal("Setting pointer is null");
     return false;
@@ -106,10 +109,14 @@ bool assertSetting(Setting *setting) {
   return true;
 }
 
+Setting* getSetting() {
+  return &setting;
+}
+
 #ifdef BOARD_ESP32
 // Must be compiled only for ESP32 board, it's a memory optimization for Arduino boards
-
-void logSetting(Setting *setting) {
+void logSetting() {
+  Setting *setting = getSetting();
   Log.traceln("Setting:");
   Log.traceln("- Board:");
   Log.traceln("  - ADC resolution: %d", setting->board.adc.resolution);

@@ -19,6 +19,7 @@ void Driver::init(Setting *setting) {
     Log.begin(LOG_LEVEL, &Serial);
     delay(10000);
   }
+  Log.noticeln("---------");
   if (!assertSetting()) {
     Log.fatal("Invalid setting");
     _ledProtocol->fatalError();

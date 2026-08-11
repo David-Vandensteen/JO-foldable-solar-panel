@@ -19,6 +19,10 @@ bool CommandState::isStateIdle() {
   return _commandStateType == CommandStateType::IDLE;
 }
 
+bool CommandState::isStateInitializing() {
+  return _commandStateType == CommandStateType::INITIALIZING;
+}
+
 CommandState CommandState::setState(CommandStateType commandStateType) {
   _commandStateType = commandStateType;
   return *this;
@@ -34,4 +38,8 @@ CommandState CommandState::setStateReset() {
 
 CommandState CommandState::setStateIdle() {
   return setState(CommandStateType::IDLE);
+}
+
+CommandState CommandState::setStateInitializing() {
+  return setState(CommandStateType::INITIALIZING);
 }

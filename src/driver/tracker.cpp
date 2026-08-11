@@ -68,11 +68,11 @@ void Tracker::init() {
 
 State Tracker::update() {
   CommandState commandState = _command.update();
-  if (commandState.isCommandStateStop()) {
+  if (commandState.isStateStop()) {
     Log.traceln("Tracker::update - Command STOP");
     stop();
     return _state.setStateStopped();
-  } else if (commandState.isCommandStateReset()) {
+  } else if (commandState.isStateReset()) {
     Log.traceln("Tracker::update - Command RESET");
     stop();
     // TODO: reset behavior

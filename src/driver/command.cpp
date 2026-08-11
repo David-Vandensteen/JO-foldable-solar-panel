@@ -29,7 +29,7 @@ Command::Command(SettingBoardPinTrackerCommand *command)
 void Command::init() {
   Log.traceln("Command::init");
   Log.noticeln("Initializing command");
-  _state = _state.setStateIdle();
+  _state = _state.setStateInitializing();
   pinMode(_command->stop, INPUT_PULLUP);
   _hold.init(
     500,

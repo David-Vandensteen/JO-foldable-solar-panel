@@ -3,6 +3,7 @@
 #include <Arduino.h>
 
 enum class CommandStateType {
+  INITIALIZING,
   IDLE,
   STOP,
   RESET
@@ -15,10 +16,12 @@ public:
   bool isStateStop();
   bool isStateReset();
   bool isStateIdle();
+  bool isStateInitializing();
   CommandState setState(CommandStateType commandStateType);
   CommandState setStateStop();
   CommandState setStateReset();
   CommandState setStateIdle();
+  CommandState setStateInitializing();
 private:
   CommandStateType _commandStateType = CommandStateType::IDLE;
 };
